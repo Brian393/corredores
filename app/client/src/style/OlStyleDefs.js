@@ -732,7 +732,7 @@ export const layersStylePropFn = {
   Bahia_Blanca: {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
-  Neocochea: {
+  Necochea: {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
 };
