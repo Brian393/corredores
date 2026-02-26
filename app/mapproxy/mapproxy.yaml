@@ -1,12 +1,8 @@
 services:
-  # Sets up how to make the source data available
-  demo: {}
-  tms: {}
+  demo: ~
+  wms: {}
   wmts: {}
-  wms:
-    # SRS sets the coordinate reference systems to make data available
-    srs: ['EPSG:4326', 'EPSG:3857']
-    image_formats: ['image/jpeg', 'image/png']
+  tms: {}
 
 layers:
   # Sets up which layers you want to make available using the services above
@@ -75,15 +71,7 @@ grids:
     origin: sw
 
 globals:
-
   cache:
-    # Where to store the cached images
     base_dir: './cache_data'
-    # Where to store lockfiles
     lock_dir: './cache_data/locks'
-
-  image:
-    # Image/transformation options
-    resampling_method: bilinear
-    jpeg_quality: 90
 

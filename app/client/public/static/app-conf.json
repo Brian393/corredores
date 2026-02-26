@@ -15,8 +15,8 @@
       "mapLink": "#7C2CA3"
     },
     "font": {
-      "url": "https://fonts.googleapis.com/css2?family=Merriweather&display=swap",
-      "family": "Merriweather"
+      "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap",
+      "family": "Open+Sans"
     },
     "legend": {
       "isVisible": true
@@ -32,17 +32,21 @@
       "textColor": "white"
     },
     "navbar": {
-      "dropdownMenu": true
+      "dropdownMenu": false
     },
     "customNavigationScheme": "2",
     "spotlightMessage": {
       "isVisible": false
+    },
+    "analysis": {
+      "rShinyServerUrl": "https://flows.rivertoday.org/aquifer",
+      "zoomToFeatureOnSelect": false
     }
   },
   "map": {
     "projectionCode": "EPSG:3857",
     "minZoom": 1,
-    "maxZoom": 19,
+    "maxZoom": 21,
     "zoom": 1,
     "geoserverWorkspace": "workspace1",
     "resolutions": [
@@ -212,9 +216,13 @@
         "label": false,
         "hoverable": true,
         "style": {
-          "fillColor": "#2CB8D7",
-          "strokeColor": "#2CB8D7",
-          "strokeWidth": 0.3
+          "type": "line",
+          "stylePropFnRef": {
+            "strokeColor": "variable1",
+            "strokeWidth": "variable2"
+          },
+          "hoverTextColor": "white",
+          "hoverBackgroundColor": "#000000"
         }
       },
       {
@@ -1133,8 +1141,7 @@
         "maxResolution": 30,
         "opacity": 1,
         "queryable": false,
-        "visible": true,
-        "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+        "visible": true
       },
       {
         "type": "XYZ",
