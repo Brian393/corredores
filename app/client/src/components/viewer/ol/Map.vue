@@ -387,26 +387,34 @@ export default {
         this.initMapFly();
       }
     },
-      bindSpotlightRecursive(layer) {
-    if (!layer || !layer.get) return;
+    bindSpotlightRecursive(layer) {
+      if (!layer || !layer.get) return;
 
-    const name = layer.get('name');
+      const name = layer.get('name');
 
-    if (name === 'ESRI-World-Imagery2' || name === 'aerial2001' || name === 'aerial2005' || name === 'aerial2010' || name === 'aerial2015' || name === 'aerial2020' || name === 'aerial2025')  {
-      // prevent double-binding if createLayers runs again (it does on group changes)
-      if (!layer.get('_spotlightBound')) {
-        layer.set('_spotlightBound', true);
+      if (
+        name === 'ESRI-World-Imagery2' ||
+        name === 'aerial2001' ||
+        name === 'aerial2005' ||
+        name === 'aerial2010' ||
+        name === 'aerial2015' ||
+        name === 'aerial2020' ||
+        name === 'aerial2025'
+      ) {
+        // prevent double-binding if createLayers runs again (it does on group changes)
+        if (!layer.get('_spotlightBound')) {
+          layer.set('_spotlightBound', true);
 
-        layer.on('prerender', e => this.spotlight(e));
-        layer.on('postrender', e => e.context.restore());
+          layer.on('prerender', e => this.spotlight(e));
+          layer.on('postrender', e => e.context.restore());
+        }
       }
-    }
 
-    // Recurse into LayerGroup children
-    if (layer.getLayers && layer.getLayers()) {
-      layer.getLayers().forEach(child => this.bindSpotlightRecursive(child));
-    }
-  },
+      // Recurse into LayerGroup children
+      if (layer.getLayers && layer.getLayers()) {
+        layer.getLayers().forEach(child => this.bindSpotlightRecursive(child));
+      }
+    },
     /**
      * Creates the OL layers due to the map "layers" array in app config.
      * @return {ol.layer.Base[]} Array of OL layer instances
@@ -430,10 +438,10 @@ export default {
           layer.setVisible(this.layerVisibilityState[layer.get('name')]);
         }
         // Enable spotlight for ESRI Imagery
-        
-// ===== START: enable spotlight for ESRI Imagery (nested too) =====
-this.bindSpotlightRecursive(layer);
-// ===== END: enable spotlight for ESRI Imagery (nested too) =====
+
+        // ===== START: enable spotlight for ESRI Imagery (nested too) =====
+        this.bindSpotlightRecursive(layer);
+        // ===== END: enable spotlight for ESRI Imagery (nested too) =====
         if (layer.get('name')) {
           me.setLayer(layer);
         }
@@ -1538,4 +1546,3 @@ div.ol-control button {
   z-index: 100;
 }
 </style>
-
