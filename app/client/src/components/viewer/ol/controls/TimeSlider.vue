@@ -1,6 +1,8 @@
 <template>
-  <div v-if="!$vuetify.breakpoint.smAndDown && !!timeSeriesLayer && timeSeriesLayer.getVisible()"
-    :style="`position:absolute;left:calc(50% + 112px);transform:translateX(-50%);bottom:60px;opacity:90%;z-index:1;minWidth:350px;width:calc(75% - 225px);`">
+  <div
+    v-if="!$vuetify.breakpoint.smAndDown && !!timeSeriesLayer && timeSeriesLayer.getVisible()"
+    :style="`position:absolute;left:calc(50% + 112px);transform:translateX(-50%);bottom:60px;opacity:90%;z-index:1;minWidth:350px;width:calc(75% - 225px);`"
+  >
     <v-card class="mx-auto py-1 mx-4">
       <!-- Current Layer Name -->
       <v-row class="my-1" justify="center">
@@ -9,23 +11,49 @@
         </span>
       </v-row>
       <v-card-text class="py-0 pb-1">
-        <v-slider class="time-slider-slider" :color="color" :step="1" ticks
+        <v-slider
+          class="time-slider-slider"
+          :color="color"
+          :step="1"
+          ticks
           :value="timeSeriesLayer.get('activeLayerIndex') ?? timeSeriesLayer.get('defaultSeriesLayerIndex') ?? 0"
-          track-color="grey" :max="timeSeriesLayer.getLayers().getArray().length - 1"
-          @change="activateTimeSeriesLayer($event, timeSeriesLayer)" hide-details center-affix>
+          track-color="grey"
+          :max="timeSeriesLayer.getLayers().getArray().length - 1"
+          @change="activateTimeSeriesLayer($event, timeSeriesLayer)"
+          hide-details
+          center-affix
+        >
           <template v-slot:prepend v-if="timeSeriesLayer.get('playButton') !== false">
-            <v-btn v-if="!timeSeriesLayer.get('isPlayDisabled')" :color="color" style="cursor: pointer"
-              class="elevation-0" fab small icon @click="isPlaying ? stop() : play()">
+            <v-btn
+              v-if="!timeSeriesLayer.get('isPlayDisabled')"
+              :color="color"
+              style="cursor: pointer"
+              class="elevation-0"
+              fab
+              small
+              icon
+              @click="isPlaying ? stop() : play()"
+            >
               <v-icon>{{ isPlaying ? 'mdi-pause' : 'fas fa-play-circle' }}</v-icon>
             </v-btn>
           </template>
           <template v-slot:append>
-            <v-btn :color="color" elevation="0" icon :disabled="timeSeriesLayer.get('activeLayerIndex') === 0"
-              @click="previous">
+            <v-btn
+              :color="color"
+              elevation="0"
+              icon
+              :disabled="timeSeriesLayer.get('activeLayerIndex') === 0"
+              @click="previous"
+            >
               <v-icon>mdi-step-backward</v-icon>
             </v-btn>
-            <v-btn :color="color" elevation="0" icon @click="next"
-              :disabled="timeSeriesLayer.get('activeLayerIndex') === timeSeriesLayer.getLayers().getArray().length - 1">
+            <v-btn
+              :color="color"
+              elevation="0"
+              icon
+              @click="next"
+              :disabled="timeSeriesLayer.get('activeLayerIndex') === timeSeriesLayer.getLayers().getArray().length - 1"
+            >
               <v-icon>mdi-step-forward</v-icon>
             </v-btn>
           </template>
@@ -35,15 +63,15 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
-import { mapFields } from 'vuex-map-fields';
-import { Mapable } from '../../../../mixins/Mapable';
+import {mapGetters} from 'vuex';
+import {mapFields} from 'vuex-map-fields';
+import {Mapable} from '../../../../mixins/Mapable';
 
 export default {
   mixins: [Mapable],
   name: 'time-slider',
   props: {
-    color: { type: String, default: '#4CAF50' },
+    color: {type: String, default: '#4CAF50'},
   },
   data() {
     return {
@@ -109,7 +137,7 @@ export default {
       const activeLayerIndex = layerGroup.get('activeLayerIndex') || 0;
       const title =
         layers[activeLayerIndex].get('legendDisplayName') &&
-          layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
+        layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
           ? layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
           : layers[activeLayerIndex].get('name');
       return title;
@@ -196,4 +224,3 @@ export default {
   margin: 0 !important;
 }
 </style>
-

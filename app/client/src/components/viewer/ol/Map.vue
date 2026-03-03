@@ -1153,12 +1153,13 @@ export default {
       if (!entity) return;
       this.selectedCoorpNetworkEntity = entity;
       if (!this.layersWithEntityField || !this.splittedEntities) return;
+      const visibleLayers = Array.isArray(this.visibleGroup?.layers) ? this.visibleGroup.layers : [];
       /// ////////////////////
       if (!this.queryLayersGeoserverNames) {
         const queryableLayers = [];
         const flatLayers = [];
         this.$appConfig.map.layers.forEach(layer => {
-          if (this.activeLayerGroupConf.layers.includes(layer.name)) {
+          if (visibleLayers.includes(layer.name)) {
             if (layer.type === 'GROUP') {
               layer.layers.forEach(subLayer => {
                 flatLayers.push(subLayer);
