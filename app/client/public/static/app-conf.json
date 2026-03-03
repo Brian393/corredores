@@ -59,6 +59,28 @@
     "layers": [
       {
         "type": "VECTOR",
+        "name": "agroecologia",
+        "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:agroecologia&outputFormat=application/json&srsname=EPSG:3857",
+        "group": "valle",
+        "queryable": true,
+        "displayInLegend": true,
+        "format": "GeoJSON",
+        "legendDisplayName": "Agroecología en corredores",
+        "visible": true,
+        "zIndex": 100,
+        "minResolution": 0,
+        "maxResolution": 120,
+        "label": true,
+        "hoverable": true,
+        "style": {
+          "iconUrl": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/bird3.png",
+          "scale": 0.5,
+          "hoverTextColor": "white",
+          "hoverBackgroundColor": "#000000"
+        }
+      },
+      {
+        "type": "VECTOR",
         "name": "poligonos_extractivistas",
         "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:poligonos_extractivistas&outputFormat=application/json&srsname=EPSG:3857",
         "group": "valle",
@@ -1385,6 +1407,7 @@
         "videos_bioculturales",
         "fotos_bioculturales",
         "audios_bioculturales",
+        "agroecologia",
         "sitios"
       ],
       "extractivista": [

@@ -412,7 +412,8 @@ export default {
         name === 'aerial2010' ||
         name === 'aerial2015' ||
         name === 'aerial2020' ||
-        name === 'aerial2025'
+        name === 'aerial2025' ||
+        name === 'spotlight'
       ) {
         // prevent double-binding if createLayers runs again (it does on group changes)
         if (!layer.get('_spotlightBound')) {

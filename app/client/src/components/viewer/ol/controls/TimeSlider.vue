@@ -1,8 +1,6 @@
 <template>
-  <div
-    v-if="!$vuetify.breakpoint.smAndDown && !!timeSeriesLayer && timeSeriesLayer.getVisible()"
-    :style="`position:absolute;left:calc(50% + 112px);transform:translateX(-50%);bottom:80px;opacity:90%;z-index:1;minWidth:350px;width:calc(75% - 225px);`"
-  >
+  <div v-if="!$vuetify.breakpoint.smAndDown && !!timeSeriesLayer && timeSeriesLayer.getVisible()"
+    :style="`position:absolute;left:calc(50% + 112px);transform:translateX(-50%);bottom:60px;opacity:90%;z-index:1;minWidth:350px;width:calc(75% - 225px);`">
     <v-card class="mx-auto py-1 mx-4">
       <!-- Current Layer Name -->
       <v-row class="my-1" justify="center">
@@ -11,48 +9,23 @@
         </span>
       </v-row>
       <v-card-text class="py-0 pb-1">
-        <v-slider
-          :color="color"
-          :step="1"
-          ticks
+        <v-slider class="time-slider-slider" :color="color" :step="1" ticks
           :value="timeSeriesLayer.get('activeLayerIndex') ?? timeSeriesLayer.get('defaultSeriesLayerIndex') ?? 0"
-          track-color="grey"
-          :max="timeSeriesLayer.getLayers().getArray().length - 1"
-          @change="activateTimeSeriesLayer($event, timeSeriesLayer)"
-          hide-details
-          center-affix
-        >
+          track-color="grey" :max="timeSeriesLayer.getLayers().getArray().length - 1"
+          @change="activateTimeSeriesLayer($event, timeSeriesLayer)" hide-details center-affix>
           <template v-slot:prepend v-if="timeSeriesLayer.get('playButton') !== false">
-            <v-btn
-              v-if="!timeSeriesLayer.get('isPlayDisabled')"
-              :color="color"
-              style="cursor: pointer"
-              class="elevation-0"
-              fab
-              small
-              icon
-              @click="isPlaying ? stop() : play()"
-            >
+            <v-btn v-if="!timeSeriesLayer.get('isPlayDisabled')" :color="color" style="cursor: pointer"
+              class="elevation-0" fab small icon @click="isPlaying ? stop() : play()">
               <v-icon>{{ isPlaying ? 'mdi-pause' : 'fas fa-play-circle' }}</v-icon>
             </v-btn>
           </template>
           <template v-slot:append>
-            <v-btn
-              :color="color"
-              elevation="0"
-              icon
-              :disabled="timeSeriesLayer.get('activeLayerIndex') === 0"
-              @click="previous"
-            >
+            <v-btn :color="color" elevation="0" icon :disabled="timeSeriesLayer.get('activeLayerIndex') === 0"
+              @click="previous">
               <v-icon>mdi-step-backward</v-icon>
             </v-btn>
-            <v-btn
-              :color="color"
-              elevation="0"
-              icon
-              @click="next"
-              :disabled="timeSeriesLayer.get('activeLayerIndex') === timeSeriesLayer.getLayers().getArray().length - 1"
-            >
+            <v-btn :color="color" elevation="0" icon @click="next"
+              :disabled="timeSeriesLayer.get('activeLayerIndex') === timeSeriesLayer.getLayers().getArray().length - 1">
               <v-icon>mdi-step-forward</v-icon>
             </v-btn>
           </template>
@@ -62,15 +35,15 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
-import {mapFields} from 'vuex-map-fields';
-import {Mapable} from '../../../../mixins/Mapable';
+import { mapGetters } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+import { Mapable } from '../../../../mixins/Mapable';
 
 export default {
   mixins: [Mapable],
   name: 'time-slider',
   props: {
-    color: {type: String, default: '#4CAF50'},
+    color: { type: String, default: '#4CAF50' },
   },
   data() {
     return {
@@ -136,7 +109,7 @@ export default {
       const activeLayerIndex = layerGroup.get('activeLayerIndex') || 0;
       const title =
         layers[activeLayerIndex].get('legendDisplayName') &&
-        layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
+          layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
           ? layers[activeLayerIndex].get('legendDisplayName')[this.$i18n.locale]
           : layers[activeLayerIndex].get('name');
       return title;
@@ -150,27 +123,77 @@ export default {
       lastSelectedLayer: 'lastSelectedLayer',
     }),
     timeSeriesLayer() {
-      if (!this.layers) {
-        return null;
-      }
+      if (!this.layers) return null;
+
+      // 1) If lastSelectedLayer is a time-series slider layer, use it
       if (this.lastSelectedLayer) {
         const selectedLayer = this.layers[this.lastSelectedLayer];
         if (selectedLayer && selectedLayer.get('displaySeries') && selectedLayer.get('largeSlider')) {
           return selectedLayer;
         }
       }
+
+      // 2) Otherwise, keep the slider for whichever series layer is CURRENTLY VISIBLE
+      for (const layer of Object.values(this.layers)) {
+        if (layer.get('displaySeries') && layer.get('largeSlider') && layer.getVisible && layer.getVisible()) {
+          return layer;
+        }
+      }
+
+      // 3) Last fallback: any series layer (even if hidden)
       for (const layer of Object.values(this.layers)) {
         if (layer.get('displaySeries') && layer.get('largeSlider')) {
           return layer;
         }
       }
+
       return null;
     },
   },
 };
 </script>
-<style lang="css" scoped>
-.v-input {
+<style scoped>
+/* Title: move it down a bit (tune) */
+.v-row {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 8px !important;
+  /* tune */
+  padding-bottom: 0 !important;
+}
+
+/* The bar that contains the slider: this defines the vertical centering box */
+.time-slider-bar {
+  height: 14px;
+  /* keep your chosen height */
+  display: flex;
   align-items: center;
 }
+
+/* Put the entire slider on the same cross-axis baseline */
+::v-deep .time-slider-slider .v-input__slot {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Prepend/append wrappers: match bar height + center buttons */
+::v-deep .time-slider-slider .v-input__prepend-outer,
+::v-deep .time-slider-slider .v-input__append-outer {
+  display: flex !important;
+  align-items: center !important;
+  height: 34px !important;
+  /* MUST match .time-slider-bar height */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  /* FINAL micro-align: lift buttons to match slider bar */
+  transform: translateY(-1px) !important;
+}
+
+/* Keep buttons tight */
+::v-deep .time-slider-slider .v-input__prepend-outer .v-btn,
+::v-deep .time-slider-slider .v-input__append-outer .v-btn {
+  margin: 0 !important;
+}
 </style>
+
