@@ -1246,7 +1246,7 @@ export default {
             });
             setTimeout(() => {
               this.map.getView().fit(extent, {
-                padding: [30, 80, 80, 80],
+                padding: [50, 90, 90, 90],
                 duration: 800,
               });
             }, 500);

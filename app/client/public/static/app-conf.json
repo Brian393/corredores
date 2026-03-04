@@ -74,7 +74,7 @@
         "hoverable": true,
         "style": {
           "iconUrl": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/bird3.png",
-          "scale": 0.5,
+          "scale": 0.4,
           "hoverTextColor": "white",
           "hoverBackgroundColor": "#000000"
         }

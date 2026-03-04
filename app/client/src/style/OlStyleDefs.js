@@ -216,7 +216,7 @@ export function worldOverlayFill() {
     styles.push(
       new OlStyle({
         fill: new OlFill({
-          color: 'rgba(236, 236, 236, 0.75)',
+          color: 'rgba(30, 30, 30, 0.4)',
         }),
         zIndex: 300,
       })

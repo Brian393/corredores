@@ -17,7 +17,7 @@
               <v-row align="center" class="my-1 mx-1" style="word-break: break-word">
                 <v-col class="mt-1 pt-0">
                   <div class="sidepanel-header">
-                    <h1><span style="font-align: center; color: #c00"></span></h1>
+                    <h1><span style="font-align: center; color: #83D561"></span></h1>
                   </div>
 
                   <!-- SIDEBAR TOP MEDIA PLAYER -->
@@ -306,7 +306,7 @@
           >
             <div class="sidepanel-header">
               <h1>
-                <span style="font-align: center; color: #c00">{{ selectedCoorpNetworkEntity }}</span>
+                <span style="font-align: center; color: #83D561">{{ selectedCoorpNetworkEntity }}</span>
               </h1>
             </div>
           </v-flex>
