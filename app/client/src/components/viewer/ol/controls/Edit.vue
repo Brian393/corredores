@@ -592,7 +592,7 @@ export default {
         const layerName = this.layersMetadata[this.selectedLayer.get('name')].typeName;
         this.isTranslating = true;
         axios
-          .get(`./api/translate/${layerName}?sourceLanguage=${this.$appConfig.app.defaultLanguage}`, {
+          .get(`./api/translate/${layerName}?sourceLanguage=${this.$appConfig.app.defaultLanguage}&force=true`, {
             headers: authHeader(),
           })
           .then(response => {

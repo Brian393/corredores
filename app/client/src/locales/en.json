@@ -132,6 +132,8 @@
       "addMapViewLink": "Add Current Map Link",
       "translateContent": "Translate Content in ",
       "expansionTitle": "Expansion Title",
+      "expansionInputLabel": "Title",
+      "translateError": "Translation failed. Please try again.",
       "imageInsert": "Insert Image",
       "videoInsert": "Insert Video",
       "audioInsert": "Insert Audio",

@@ -26,12 +26,8 @@ export default class Expansion extends Node {
   get schema() {
     return {
       attrs: {
-        title: {
-          default: '',
-        },
-        uid: {
-          default: () => makeUid(),
-        },
+        title: {default: ''},
+        uid: {default: ''},
       },
 
       group: 'block',
@@ -48,9 +44,8 @@ export default class Expansion extends Node {
           getAttrs: dom => {
             const label = dom.querySelector('h2.handle label');
             const input = dom.querySelector('input[type="checkbox"]');
-
             return {
-              title: label ? label.innerHTML : '',
+              title: label ? label.textContent : '',
               uid: input && input.id ? input.id : makeUid(),
             };
           },
@@ -59,62 +54,48 @@ export default class Expansion extends Node {
 
       toDOM: node => [
         'section',
-        {
-          class: 'ep-accordion',
-          'data-expansion-uid': node.attrs.uid,
-        },
-        [
-          'input',
-          {
-            type: 'checkbox',
-            name: 'collapse',
-            id: node.attrs.uid,
-          },
+        {class: 'ep-accordion', 'data-expansion-uid': node.attrs.uid},
+        ['input', {type: 'checkbox', name: 'collapse', id: node.attrs.uid}],
+        ['h2', {class: 'handle'},
+          ['label', {for: node.attrs.uid}, node.attrs.title],
         ],
-        [
-          'h2',
-          {
-            class: 'handle',
-          },
-          [
-            'label',
-            {
-              for: node.attrs.uid,
-            },
-            node.attrs.title,
-          ],
-        ],
-        [
-          'div',
-          {
-            class: 'content',
-          },
-          0,
-        ],
+        ['div', {class: 'content'}, 0],
       ],
     };
   }
 
   commands({type, schema}) {
-    return attrs => (state, dispatch) => {
-      const {from, to} = state.selection;
+    return {
+      expansion: attrs => (state, dispatch) => {
+        const {from, to} = state.selection;
+        const paragraphType = schema.nodes.paragraph;
+        const content = paragraphType ? paragraphType.create() : null;
+        const node = type.create(
+          {
+            title: attrs && attrs.title ? attrs.title : '',
+            uid: attrs && attrs.uid ? attrs.uid : makeUid(),
+          },
+          content
+        );
+        if (dispatch) {
+          dispatch(state.tr.replaceRangeWith(from, to, node));
+        }
+        return true;
+      },
 
-      const paragraphType = schema.nodes.paragraph;
-      const content = paragraphType ? paragraphType.create() : null;
-
-      const node = type.create(
-        {
-          title: attrs && attrs.title ? attrs.title : '',
-          uid: attrs && attrs.uid ? attrs.uid : makeUid(),
-        },
-        content
-      );
-
-      if (dispatch) {
-        dispatch(state.tr.replaceRangeWith(from, to, node));
-      }
-
-      return true;
+      updateExpansionTitle: ({uid, title}) => (state, dispatch) => {
+        let found = false;
+        state.doc.descendants((node, pos) => {
+          if (node.type === type && node.attrs.uid === uid) {
+            if (dispatch) {
+              dispatch(state.tr.setNodeMarkup(pos, null, {...node.attrs, title}));
+            }
+            found = true;
+            return false;
+          }
+        });
+        return found;
+      },
     };
   }
 
@@ -123,58 +104,34 @@ export default class Expansion extends Node {
       Enter: (state, dispatch) => {
         const {selection} = state;
         const {$from, empty} = selection;
-
         if (!empty) return false;
-
         const expansion = findAncestorOfType($from, type);
         if (!expansion) return false;
-
         const endOfExpansionContent = $from.end(expansion.depth);
-
-        // Only intercept Enter when the cursor is at the very end
-        // of the expansion's content. Otherwise let normal paragraph
-        // splitting happen inside the panel.
-        if ($from.pos !== endOfExpansionContent) {
-          return false;
-        }
-
+        if ($from.pos !== endOfExpansionContent) return false;
         const paragraphType = schema.nodes.paragraph;
         if (!paragraphType) return false;
-
         const insertPos = expansion.pos + expansion.node.nodeSize;
         const paragraph = paragraphType.create();
-
         if (dispatch) {
           let tr = state.tr.insert(insertPos, paragraph);
           tr = tr.setSelection(state.selection.constructor.near(tr.doc.resolve(insertPos + 1)));
           dispatch(tr.scrollIntoView());
         }
-
         return true;
       },
 
       Backspace: (state, dispatch) => {
         const {selection} = state;
         const {$from, empty} = selection;
-
         if (!empty) return false;
-
         const expansion = findAncestorOfType($from, type);
         if (!expansion) return false;
-
         const startOfExpansionContent = $from.start(expansion.depth);
-
-        // At the very start of the first textblock inside the expansion,
-        // do nothing. This avoids accidental destructive backspacing
-        // that can feel jumpy with isolating block nodes.
-        if ($from.pos !== startOfExpansionContent) {
-          return false;
-        }
-
+        if ($from.pos !== startOfExpansionContent) return false;
         if (dispatch) {
           dispatch(state.tr);
         }
-
         return true;
       },
     };

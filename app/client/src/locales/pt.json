@@ -130,6 +130,8 @@
       "addMapViewLink": "Acrescentar ligação ao mapa actual",
       "translateContent": "Traduzir Conteúdo em",
       "expansionTitle": "Título de Expansão",
+      "expansionInputLabel": "Título",
+      "translateError": "A tradução falhou. Por favor, tente novamente.",
       "imageInsert": "Inserir imagem",
       "videoInsert": "Inserir vídeo",
       "audioInsert": "Inserir Áudio",

@@ -118,6 +118,8 @@
       "addMapViewLink": "添加当前地图链接",
       "translateContent": "翻译内容在 ",
       "expansionTitle": "拓展标题",
+      "expansionInputLabel": "标题",
+      "translateError": "翻译失败，请重试。",
       "imageInsert": "插入图片",
       "videoInsert": "插入视频",
       "audioInsert": "插入音频",
