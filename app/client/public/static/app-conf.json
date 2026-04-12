@@ -11,12 +11,12 @@
     "color": {
       "primary": "#020101",
       "secondary": "#020101",
-      "link": "green",
+      "link": "#52DF00",
       "mapLink": "#7C2CA3"
     },
     "font": {
-      "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap",
-      "family": "Open+Sans"
+      "url": "https://fonts.googleapis.com/css2?family=Merriweather&display=swap",
+      "family": "Merriweather"
     },
     "legend": {
       "isVisible": true
@@ -32,28 +32,44 @@
       "textColor": "white"
     },
     "navbar": {
-      "dropdownMenu": false
+      "dropdownMenu": true
     },
     "customNavigationScheme": "2",
     "spotlightMessage": {
       "isVisible": false
-    },
-    "analysis": {
-      "rShinyServerUrl": "https://flows.rivertoday.org/aquifer",
-      "zoomToFeatureOnSelect": false
     }
   },
   "map": {
     "projectionCode": "EPSG:3857",
     "minZoom": 1,
-    "maxZoom": 21,
+    "maxZoom": 19,
     "zoom": 1,
     "geoserverWorkspace": "workspace1",
     "resolutions": [
-      156543.03, 78271.52, 39135.76, 19567.88, 9783.94, 4891.97, 2445.98, 1222.99, 611.5, 305.75, 152.87, 76.437,
-      38.219, 19.109, 9.5546, 4.7773, 2.3887, 1.1943, 0.5972
+      156543.03,
+      78271.52,
+      39135.76,
+      19567.88,
+      9783.94,
+      4891.97,
+      2445.98,
+      1222.99,
+      611.5,
+      305.75,
+      152.87,
+      76.437,
+      38.219,
+      19.109,
+      9.5546,
+      4.7773,
+      2.3887,
+      1.1943,
+      0.5972
     ],
-    "center": [0, 0],
+    "center": [
+      0,
+      0
+    ],
     "minResolution": 0.12,
     "maxResolution": 64000,
     "layers": [
@@ -65,16 +81,18 @@
         "queryable": true,
         "displayInLegend": true,
         "format": "GeoJSON",
-        "legendDisplayName": "Agroecología en corredores",
+        "legendDisplayName": "Agroecología",
+        "legendIcon": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/agroeco_leyenda.png",
         "visible": true,
+        "displaySidebarInfo": true,
         "zIndex": 100,
         "minResolution": 0,
-        "maxResolution": 120,
+        "maxResolution": 4000,
         "label": true,
         "hoverable": true,
         "style": {
-          "iconUrl": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/bird3.png",
-          "scale": 0.4,
+          "iconUrl": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/agroeco.png",
+          "scale": 0.3,
           "hoverTextColor": "white",
           "hoverBackgroundColor": "#000000"
         }
@@ -238,13 +256,9 @@
         "label": false,
         "hoverable": true,
         "style": {
-          "type": "line",
-          "stylePropFnRef": {
-            "strokeColor": "variable1",
-            "strokeWidth": "variable2"
-          },
-          "hoverTextColor": "white",
-          "hoverBackgroundColor": "#000000"
+          "fillColor": "#2CB8D7",
+          "strokeColor": "#2CB8D7",
+          "strokeWidth": 0.3
         }
       },
       {
@@ -839,9 +853,9 @@
       },
       {
         "type": "XYZ",
-        "name": "worldphys_clipped",
+        "name": "worldphys_black2_3857",
         "group": "valle",
-        "url": "https://neckarinsel.ecotopia.today/geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_clipped@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+        "url": "./geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_black2_3857@EPSG%3A900913@png/{z}/{x}/{-y}.png",
         "minResolution": 0.5,
         "maxResolution": 64000,
         "displayInLegend": false,
@@ -854,7 +868,7 @@
         "type": "XYZ",
         "name": "worldphys_clipped_trans",
         "group": "valle",
-        "url": "https://neckarinsel.ecotopia.today/geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_clipped_trans@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+        "url": "./geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_clipped_trans@EPSG%3A900913@png/{z}/{x}/{-y}.png",
         "minResolution": 0.5,
         "maxResolution": 64000,
         "displayInLegend": false,
@@ -873,118 +887,212 @@
         "legendDisplayName": "Soja",
         "visible": false,
         "displaySidebarInfo": true,
-        "group": "valle",
+        "group": "extractivista",
         "attributions": "",
         "displaySeries": true,
         "largeSlider": true,
+        "playButton": true,
         "playInterval": "3000",
         "defaultSeriesLayerIndex": 0,
         "layers": [
           {
-            "type": "XYZ",
-            "name": "2001",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2001/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2001",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2001",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2001",
+              "es": "2001",
+              "de": "2001"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2001",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2001@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2001",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2005",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2005/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2005",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2005",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2005",
+              "es": "2005",
+              "de": "2005"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2005",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2005@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2005",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2010",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2010/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2010",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2010",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2010",
+              "es": "2010",
+              "de": "2010"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2010",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2010@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2010",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2015",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2015/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2015",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2015",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2015",
+              "es": "2015",
+              "de": "2015"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2015",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2015@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2015",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2015",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/21750/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2020",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2020/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2020",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2020",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2020",
+              "es": "2020",
+              "de": "2020"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2020",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2020@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2020",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2020",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/9812/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2024",
-            "group": "valle",
-            "url": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/tiles/soja/soja_2024/{z}/{x}/{y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Soja 2024",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "soja_2024",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2024",
+              "es": "2024",
+              "de": "2024"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2024",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:Soja_2024@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "Soja 2024",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2025",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           }
         ]
       },
       {
-        "type": "XYZ",
-        "name": "desmonte",
-        "group": "one",
-        "url": "https://s3-sa-east-1.amazonaws.com/casario-mapa/assets/tiles/desmonte/{z}/{x}/{y}.png",
-        "minResolution": 1,
-        "maxResolution": 64000,
-        "displayInLegend": true,
-        "displaySidebarInfo": true,
-        "legendDisplayName": "Desmonte 2001-20",
-        "legendIcon": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/legend_icons/leyenda_desmonte.png",
-        "opacity": 0.99,
-        "visible": false,
-        "updatewhileanimating": true
-      },
-      {
         "type": "GROUP",
         "name": "quemas",
-        "legendIcon": "casa-rio.s3.us-east-2.amazonaws.com/assets/icons/legends/leyenda_soja_2001-2020.png",
+        "legendIcon": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/legends/leyenda_quemas.png",
         "minResolution": 2,
         "maxResolution": 60000,
         "displayInLegend": true,
@@ -995,106 +1103,460 @@
         "attributions": "Test attributions",
         "displaySeries": true,
         "largeSlider": true,
-        "playButton": false,
+        "playButton": true,
         "defaultSeriesLayerIndex": 0,
         "layers": [
           {
-            "type": "XYZ",
-            "name": "2018",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2018@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2018",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "quemas_2018",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2018",
+              "es": "2018",
+              "de": "2018"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2018",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2018@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2018",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/645/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2019",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2019@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2019",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "type": "GROUP",
+            "name": "quemas_2019",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2019",
+              "es": "2019",
+              "de": "2019"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2019",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2019@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2019",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/645/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           },
           {
-            "type": "XYZ",
+            "type": "GROUP",
+            "name": "quemas_2020",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2020",
+              "es": "2020",
+              "de": "2020"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2020",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2020@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2020",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/32645/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "quemas_2021",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2021",
+              "es": "2021",
+              "de": "2021"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2021",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2021@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2021",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/7110/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "quemas_2022",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2022",
+              "es": "2022",
+              "de": "2022"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2022",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2022@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2022",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/12457/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "quemas_2023",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2023",
+              "es": "2023",
+              "de": "2023"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2023",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2023@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2023",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/39767/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "quemas_2024",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2024",
+              "es": "2024",
+              "de": "2024"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "focos_2024",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2024@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "focos_2024",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "spotlight",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/13192/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 40,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "GROUP",
+        "name": "desmonte_2001-2024",
+        "legendIcon": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/icons/legend_icons/leyenda_desmonte.png",
+        "minResolution": 2,
+        "maxResolution": 60000,
+        "displayInLegend": true,
+        "legendDisplayName": "Desmonte",
+        "visible": false,
+        "displaySidebarInfo": true,
+        "group": "extractivista",
+        "attributions": "",
+        "displaySeries": true,
+        "largeSlider": true,
+        "playButton": true,
+        "playInterval": "3000",
+        "defaultSeriesLayerIndex": 0,
+        "layers": [
+          {
+            "type": "GROUP",
+            "name": "2005",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2001-2005",
+              "es": "2001-2005",
+              "de": "2001-2005"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2001",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:desmonte_2005@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "desmonte_2005",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "2010",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2006-2010",
+              "es": "2006-2010",
+              "de": "2006-2010"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2010",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:desmonte_2010@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "desmonte_2010",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
+            "name": "2015",
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2011-2015",
+              "es": "2011-2015",
+              "de": "2011-2015"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2015",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:desmonte_2015@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "desmonte_2015",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2015",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/21750/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
+          },
+          {
+            "type": "GROUP",
             "name": "2020",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2020@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2020",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2016-2020",
+              "es": "2016-2020",
+              "de": "2016-2020"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2020",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:desmonte_2020@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "desmonte_2020",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2020",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/9812/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           },
           {
-            "type": "XYZ",
-            "name": "2021",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2021@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2021",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
-          },
-          {
-            "type": "XYZ",
-            "name": "2022",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2022@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2022",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
-          },
-          {
-            "type": "XYZ",
-            "name": "2023",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2023@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2023",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
-          },
-          {
-            "type": "XYZ",
+            "type": "GROUP",
             "name": "2024",
-            "group": "valle",
-            "url": "geoserver/gwc/service/tms/1.0.0/workspace1:focos_2024@EPSG%3A900913@png/{z}/{x}/{-y}.png",
-            "minResolution": 1,
-            "maxResolution": 64000,
-            "displayInLegend": false,
-            "displaySidebarInfo": false,
-            "legendDisplayName": "Quemas 2024",
-            "opacity": 0.99,
-            "visible": false,
-            "updatewhileanimating": true
+            "visible": true,
+            "legendDisplayName": {
+              "en": "2020-2024",
+              "es": "2020-2024",
+              "de": "2020-2024"
+            },
+            "layers": [
+              {
+                "type": "XYZ",
+                "name": "2024",
+                "group": "extractivista",
+                "url": "geoserver/gwc/service/tms/1.0.0/workspace1:desmonte_2024@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+                "minResolution": 1,
+                "maxResolution": 64000,
+                "displayInLegend": false,
+                "displaySidebarInfo": false,
+                "legendDisplayName": "desmonte_2024",
+                "opacity": 0.99,
+                "visible": true,
+                "updatewhileanimating": true
+              },
+              {
+                "type": "XYZ",
+                "name": "aerial2025",
+                "group": "extractivista",
+                "url": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/{z}/{y}/{x}",
+                "minResolution": 0.12,
+                "maxResolution": 16,
+                "opacity": 1,
+                "queryable": false,
+                "visible": true,
+                "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
+              }
+            ]
           }
         ]
       },
@@ -1163,11 +1625,12 @@
         "maxResolution": 30,
         "opacity": 1,
         "queryable": false,
-        "visible": true
+        "visible": true,
+        "attributions": "Sources: Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community"
       },
       {
         "type": "XYZ",
-        "name": "ESRI-World-Imagery2",
+        "name": "ESRI--ImageryWorld2",
         "group": "backgroundLayers",
         "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         "minResolution": 0.12,
@@ -1197,12 +1660,90 @@
         "layers": [
           {
             "type": "VECTOR",
-            "name": "San_Lorenzo",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_lorenzo&outputFormat=application/json&srsname=EPSG:3857",
+            "name": "Bahia_Blanca",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_bahia_blanca&outputFormat=application/json&srsname=EPSG:3857",
             "queryable": true,
             "isInteractive": true,
             "displayInLegend": true,
-            "legendDisplayName": "San Lorenzo",
+            "legendDisplayName": "Bahía Blanca",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Necochea",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_necochea&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Necochea",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Campana",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_campana&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Campana",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "San_Nicolas",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_nicolas&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "San Nicolas",
             "format": "GeoJSON",
             "visible": true,
             "displaySidebarInfo": false,
@@ -1249,12 +1790,12 @@
           },
           {
             "type": "VECTOR",
-            "name": "Necochea",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_neocochea&outputFormat=application/json&srsname=EPSG:3857",
+            "name": "San_Lorenzo",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_lorenzo&outputFormat=application/json&srsname=EPSG:3857",
             "queryable": true,
             "isInteractive": true,
             "displayInLegend": true,
-            "legendDisplayName": "Necochea",
+            "legendDisplayName": "San Lorenzo",
             "format": "GeoJSON",
             "visible": true,
             "displaySidebarInfo": false,
@@ -1275,12 +1816,12 @@
           },
           {
             "type": "VECTOR",
-            "name": "Bahia_Blanca",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_bahia_blanca&outputFormat=application/json&srsname=EPSG:3857",
+            "name": "Rio_Grande",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_rio_grande&outputFormat=application/json&srsname=EPSG:3857",
             "queryable": true,
             "isInteractive": true,
             "displayInLegend": true,
-            "legendDisplayName": "Bahía Blanca",
+            "legendDisplayName": "Rio Grande",
             "format": "GeoJSON",
             "visible": true,
             "displaySidebarInfo": false,
@@ -1298,187 +1839,444 @@
               "hoverTextColor": "white",
               "hoverBackgroundColor": "#000000"
             }
-          }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Sao_Francisco_do_Sul",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_francisco_do_sul&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Sao Francisco do Sul",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Paranagua",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_paranagua&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Paranagua",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Santos",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_santos&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Rosario",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Vitoria",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_vitoria&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Vitoria",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Salvador",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_salvador&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Salvador",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Sao_Luis",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_luis&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Sao Luis",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Barcarena",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_barcarena&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Barcarena",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Santarem",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_santarem&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Santarem",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            },
+            {
+              "type": "VECTOR",
+              "name": "Manaus",
+              "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_manaus&outputFormat=application/json&srsname=EPSG:3857",
+              "queryable": true,
+              "isInteractive": true,
+              "displayInLegend": true,
+              "legendDisplayName": "Manaus",
+              "format": "GeoJSON",
+              "visible": true,
+              "displaySidebarInfo": false,
+              "zIndex": 1,
+              "minResolution": 2,
+              "maxResolution": 64000,
+              "label": false,
+              "hoverable": true,
+              "style": {
+                "type": "line",
+                "stylePropFnRef": {
+                  "strokeWidth": "variable1"
+                },
+                "strokeColor": "#7c2ca3",
+                "hoverTextColor": "white",
+                "hoverBackgroundColor": "#000000"
+              }
+            }
+          ]
+        },
+        {
+          "type": "XYZ",
+          "name": "ESRI-World-Imagery",
+          "group": "backgroundLayers",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          "minResolution": 0.12,
+          "maxResolution": 40,
+          "queryable": false,
+          "visible": false
+        }
+      ],
+      "groups": {
+        "valle": {
+          "center": [
+            -60.13,
+            -27.126
+          ],
+          "resolution": 4500,
+          "mobileCenter": [
+            -58.936,
+            -28.151
+          ],
+          "mobileResolution": 6200,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "estuario": {
+          "center": [
+            -57.835,
+            -34.671
+          ],
+          "resolution": 200,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "delta": {
+          "center": [
+            -59.412,
+            -33.091
+          ],
+          "resolution": 600,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "parana_medio": {
+          "center": [
+            -60.136,
+            -30.315
+          ],
+          "resolution": 600,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "esteros": {
+          "center": [
+            -58.561,
+            -27.366
+          ],
+          "resolution": 800,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "pantanal": {
+          "center": [
+            -58.061,
+            -17.283
+          ],
+          "resolution": 800,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        },
+        "mundo": {
+          "center": [
+            0,
+            0
+          ],
+          "resolution": 64000,
+          "minResolution": 0.12,
+          "maxResolution": 64000,
+          "backgroundColor": "#A0794A"
+        }
+      },
+      "flyToSlideshow": {
+        "delayInSecondsForInitialStart": 9000000,
+        "delayInSecondsBetweenFrames": 9000000,
+        "maplinks": []
+      },
+      "defaultActiveGroup": "valle",
+      "groupTitles": {
+        "valle": "Cuenca",
+        "estuario": "Estuario",
+        "delta": "Delta",
+        "parana_medio": "Paraná Medio",
+        "esteros": "Esteros",
+        "pantanal": "Pantanal",
+        "mundo": "Mundo"
+      },
+      "buttons": {
+        "biocultural": [
+          "worldphys_clipped_trans",
+          "aerial",
+          "mapaverde",
+          "gran_valle",
+          "humedales",
+          "areas_protegidas",
+          "territorios_bioculturales",
+          "colaboradores",
+          "poligonos_bioculturales",
+          "fire_hidrografia",
+          "fire_hidrografia2",
+          "lineas_bioculturales",
+          "puntos_bioculturales",
+          "glp_componentes",
+          "fcs_poligonos",
+          "fcs_lineas",
+          "cmr_poligonos",
+          "cmr_lineas",
+          "cmr_puntos",
+          "audios",
+          "videos",
+          "fotos",
+          "videos_bioculturales",
+          "fotos_bioculturales",
+          "audios_bioculturales",
+          "agroecologia",
+          "sitios"
+        ],
+        "extractivista": [
+          "worldphys_black2_3857",
+          "cuenca_plata2",
+          "mapa_oscura",
+          "soja_2001-2024",
+          "quemas",
+          "desmonte_2001-2024",
+          "hidrovia",
+          "AHEs",
+          "calles",
+          "poligonos_extractivistas",
+          "lineas_extractivistas",
+          "puntos_extractivistas",
+          "audios",
+          "videos",
+          "fotos",
+          "puertos_fluviales",
+          "exportacion_soja"
         ]
       },
-      {
-        "type": "XYZ",
-        "name": "ESRI-World-Imagery",
-        "group": "backgroundLayers",
-        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        "minResolution": 0.12,
-        "maxResolution": 40,
-        "queryable": false,
-        "visible": false
-      }
-    ],
-    "groups": {
-      "valle": {
-        "center": [-60.13, -27.126],
-        "resolution": 4500,
-        "mobileCenter": [-58.936, -28.151],
-        "mobileResolution": 6200,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
+      "defaultActiveButton": "biocultural",
+      "buttonTitles": {
+        "biocultural": "biocultural",
+        "extractivista": "extractivista"
       },
-      "estuario": {
-        "center": [-57.835, -34.671],
-        "resolution": 200,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
+      "popupFieldsMapping": {
+        "default": {
+          "title": "NOMBRE",
+          "name": "NOMBRE",
+          "entity": "SECTOR",
+          "description": "DESCRIPTIVO",
+          "MUNIC_1": "MUNICIPALIDAD 1",
+          "MUNIC_2": "MUNICIPALIDAD 2",
+          "sidebarMediaTop": "FOTO/VIDEO ARRIBA",
+          "sidebarMediaBottom": "FOTO/VIDEO ABAJO",
+          "caption": "LEYENDA ARRIBA",
+          "caption2": "LEYENDA ABAJO",
+          "variable1": "COLOR",
+          "variable2": "ANCHURA",
+          "videoSrc": "URL (VIMEO O YOUTUBE)"
+        }
       },
-      "delta": {
-        "center": [-59.412, -33.091],
-        "resolution": 600,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
-      },
-      "parana_medio": {
-        "center": [-60.136, -30.315],
-        "resolution": 600,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
-      },
-      "esteros": {
-        "center": [-58.561, -27.366],
-        "resolution": 800,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
-      },
-      "pantanal": {
-        "center": [-58.061, -17.283],
-        "resolution": 800,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
-      },
-      "mundo": {
-        "center": [0, 0],
-        "resolution": 64000,
-        "minResolution": 0.12,
-        "maxResolution": 64000,
-        "backgroundColor": "#A0794A"
-      }
-    },
-    "flyToSlideshow": {
-      "delayInSecondsForInitialStart": 9000000,
-      "delayInSecondsBetweenFrames": 9000000,
-      "maplinks": []
-    },
-    "defaultActiveGroup": "valle",
-    "groupTitles": {
-      "valle": "Cuenca",
-      "estuario": "Estuario",
-      "delta": "Delta",
-      "parana_medio": "Paraná Medio",
-      "esteros": "Esteros",
-      "pantanal": "Pantanal",
-      "mundo": "Mundo"
-    },
-    "buttons": {
-      "biocultural": [
-        "aerial",
-        "worldphys_clipped_trans",
-        "mapaverde",
-        "gran_valle",
-        "humedales",
-        "areas_protegidas",
-        "territorios_bioculturales",
-        "colaboradores",
-        "poligonos_bioculturales",
-        "fire_hidrografia",
-        "fire_hidrografia2",
-        "lineas_bioculturales",
-        "puntos_bioculturales",
-        "glp_componentes",
-        "fcs_poligonos",
-        "fcs_lineas",
-        "cmr_poligonos",
-        "cmr_lineas",
-        "cmr_puntos",
-        "audios",
-        "videos",
-        "fotos",
-        "videos_bioculturales",
-        "fotos_bioculturales",
-        "audios_bioculturales",
-        "agroecologia",
-        "sitios"
+      "featureInfoHiddenProps": [
+        "variable1",
+        "variable2",
+        "imageUrl",
+        "sidebarMediaTop",
+        "sidebarMediaBottom",
+        "caption",
+        "caption2",
+        "videoUrl",
+        "videoSrc",
+        "UF_1",
+        "COD_BAC",
+        "COD_SBAC",
+        "LAT_EIXO_G",
+        "LONG EIXO",
+        "UF_2",
+        "UF_CF",
+        "MUNIC_CF",
+        "toneladas_de_soja",
+        "tonealdas_de_soja",
+        "soybean_importer",
+        "port",
+        "translations"
       ],
-      "extractivista": [
-        "worldphys_clipped",
-        "cuenca_plata2",
-        "mapa_oscura",
-        "soja_2001-2024",
-        "desmonte",
-        "quemas",
-        "ESRI-World-Imagery2",
-        "hidrovia",
-        "AHEs",
-        "calles",
-        "poligonos_extractivistas",
-        "lineas_extractivistas",
-        "puntos_extractivistas",
-        "audios",
-        "videos",
-        "fotos",
-        "puertos_fluviales",
-        "exportacion_soja"
-      ]
-    },
-    "defaultActiveButton": "biocultural",
-    "buttonTitles": {
-      "biocultural": "biocultural",
-      "extractivista": "extractivista"
-    },
-    "popupFieldsMapping": {
-      "default": {
-        "title": "NOMBRE",
-        "name": "NOMBRE",
-        "entity": "EMPRESA",
-        "description": "DESCRIPTIVO",
-        "MUNIC_1": "MUNICIPALIDAD 1",
-        "MUNIC_2": "MUNICIPALIDAD 2",
-        "sidebarMediaTop": "FOTO/VIDEO ARRIBA",
-        "sidebarMediaBottom": "FOTO/VIDEO ABAJO",
-        "caption": "LEYENDA ARRIBA",
-        "caption2": "LEYENDA ABAJO",
-        "variable1": "COLOR",
-        "variable2": "ANCHURA",
-        "videoSrc": "URL (VIMEO O YOUTUBE)"
+      "corporateEntitiesUrls": {
+        "Enbridge": ""
       }
-    },
-    "featureInfoHiddenProps": [
-      "variable1",
-      "variable2",
-      "imageUrl",
-      "sidebarMediaTop",
-      "sidebarMediaBottom",
-      "caption",
-      "caption2",
-      "videoUrl",
-      "videoSrc",
-      "UF_1",
-      "COD_BAC",
-      "COD_SBAC",
-      "LAT_EIXO_G",
-      "LONG EIXO",
-      "UF_2",
-      "UF_CF",
-      "MUNIC_CF",
-      "toneladas_de_soja",
-      "tonealdas_de_soja",
-      "soybean_importer",
-      "port",
-      "translations"
-    ],
-    "corporateEntitiesUrls": {
-      "Enbridge": ""
     }
   }
-}

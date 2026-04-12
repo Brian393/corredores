@@ -729,10 +729,46 @@ export const layersStylePropFn = {
   San_Lorenzo: {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
+  Santos: {
+    strokeWidth: propertyValue => propertyValue / 400000,
+  },
   Bahia_Blanca: {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
   Necochea: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Campana: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  San_Nicolas: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Manaus: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Santarem: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Barcarena: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Sao_Luis: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Salvador: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Vitoria: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Paranagua: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Sao_Francisco_do_Sul: {
+    strokeWidth: propertyValue => propertyValue / 200000,
+  },
+  Rio_Grande: {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
 };
