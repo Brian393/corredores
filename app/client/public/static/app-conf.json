@@ -46,10 +46,30 @@
     "zoom": 1,
     "geoserverWorkspace": "workspace1",
     "resolutions": [
-      156543.03, 78271.52, 39135.76, 19567.88, 9783.94, 4891.97, 2445.98, 1222.99, 611.5, 305.75, 152.87, 76.437,
-      38.219, 19.109, 9.5546, 4.7773, 2.3887, 1.1943, 0.5972
+      156543.03,
+      78271.52,
+      39135.76,
+      19567.88,
+      9783.94,
+      4891.97,
+      2445.98,
+      1222.99,
+      611.5,
+      305.75,
+      152.87,
+      76.437,
+      38.219,
+      19.109,
+      9.5546,
+      4.7773,
+      2.3887,
+      1.1943,
+      0.5972
     ],
-    "center": [0, 0],
+    "center": [
+      0,
+      0
+    ],
     "minResolution": 0.12,
     "maxResolution": 64000,
     "layers": [
@@ -833,9 +853,9 @@
       },
       {
         "type": "XYZ",
-        "name": "worldphys_black2_3857",
+        "name": "worldphys_black2",
         "group": "valle",
-        "url": "./geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_black2_3857@EPSG%3A900913@png/{z}/{x}/{-y}.png",
+        "url": "./geoserver/gwc/service/tms/1.0.0/workspace1:worldphys_black2@EPSG%3A900913@png/{z}/{x}/{-y}.png",
         "minResolution": 0.5,
         "maxResolution": 64000,
         "displayInLegend": false,
@@ -1640,350 +1660,12 @@
         "layers": [
           {
             "type": "VECTOR",
-            "name": "Bahia_Blanca",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_bahia_blanca&outputFormat=application/json&srsname=EPSG:3857",
+            "name": "Manaus",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_manaus&outputFormat=application/json&srsname=EPSG:3857",
             "queryable": true,
             "isInteractive": true,
             "displayInLegend": true,
-            "legendDisplayName": "Bahía Blanca",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Necochea",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_necochea&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Necochea",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Campana",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_campana&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Campana",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "San_Nicolas",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_nicolas&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "San Nicolas",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Rosario",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_rosario&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Rosario",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "San_Lorenzo",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_lorenzo&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "San Lorenzo",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Rio_Grande",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_rio_grande&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Rio Grande",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Sao_Francisco_do_Sul",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_francisco_do_sul&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Sao Francisco do Sul",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Paranagua",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_paranagua&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Paranagua",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Santos",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_santos&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Rosario",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Vitoria",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_vitoria&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Vitoria",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Salvador",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_salvador&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Salvador",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Sao_Luis",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_luis&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Sao Luis",
-            "format": "GeoJSON",
-            "visible": true,
-            "displaySidebarInfo": false,
-            "zIndex": 1,
-            "minResolution": 2,
-            "maxResolution": 64000,
-            "label": false,
-            "hoverable": true,
-            "style": {
-              "type": "line",
-              "stylePropFnRef": {
-                "strokeWidth": "variable1"
-              },
-              "strokeColor": "#7c2ca3",
-              "hoverTextColor": "white",
-              "hoverBackgroundColor": "#000000"
-            }
-          },
-          {
-            "type": "VECTOR",
-            "name": "Barcarena",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_barcarena&outputFormat=application/json&srsname=EPSG:3857",
-            "queryable": true,
-            "isInteractive": true,
-            "displayInLegend": true,
-            "legendDisplayName": "Barcarena",
+            "legendDisplayName": "Manaus",
             "format": "GeoJSON",
             "visible": true,
             "displaySidebarInfo": false,
@@ -2030,12 +1712,350 @@
           },
           {
             "type": "VECTOR",
-            "name": "Manaus",
-            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_manaus&outputFormat=application/json&srsname=EPSG:3857",
+            "name": "Barcarena",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_barcarena&outputFormat=application/json&srsname=EPSG:3857",
             "queryable": true,
             "isInteractive": true,
             "displayInLegend": true,
-            "legendDisplayName": "Manaus",
+            "legendDisplayName": "Barcarena",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Sao_Luis",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_luis&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Sao Luis",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Salvador",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_salvador&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Salvador",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Vitoria",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_vitoria&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Vitoria",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Santos",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_santos&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Rosario",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Paranagua",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_paranagua&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Paranagua",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Sao_Francisco_do_Sul",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_sao_francisco_do_sul&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Sao Francisco do Sul",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Rio_Grande",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:brasil_rio_grande&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Rio Grande",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "San_Lorenzo",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_lorenzo&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "San Lorenzo",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Rosario",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_rosario&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Rosario",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "San_Nicolas",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_san_nicolas&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "San Nicolas",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Campana",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_campana&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Campana",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Necochea",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_necochea&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Necochea",
+            "format": "GeoJSON",
+            "visible": true,
+            "displaySidebarInfo": false,
+            "zIndex": 1,
+            "minResolution": 2,
+            "maxResolution": 64000,
+            "label": false,
+            "hoverable": true,
+            "style": {
+              "type": "line",
+              "stylePropFnRef": {
+                "strokeWidth": "variable1"
+              },
+              "strokeColor": "#7c2ca3",
+              "hoverTextColor": "white",
+              "hoverBackgroundColor": "#000000"
+            }
+          },
+          {
+            "type": "VECTOR",
+            "name": "Bahia_Blanca",
+            "url": "./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typename=workspace1:puerto_bahia_blanca&outputFormat=application/json&srsname=EPSG:3857",
+            "queryable": true,
+            "isInteractive": true,
+            "displayInLegend": true,
+            "legendDisplayName": "Bahía Blanca",
             "format": "GeoJSON",
             "visible": true,
             "displaySidebarInfo": false,
@@ -2069,51 +2089,75 @@
     ],
     "groups": {
       "valle": {
-        "center": [-60.13, -27.126],
+        "center": [
+          -60.13,
+          -27.126
+        ],
         "resolution": 4500,
-        "mobileCenter": [-58.936, -28.151],
+        "mobileCenter": [
+          -58.936,
+          -28.151
+        ],
         "mobileResolution": 6200,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "estuario": {
-        "center": [-57.835, -34.671],
+        "center": [
+          -57.835,
+          -34.671
+        ],
         "resolution": 200,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "delta": {
-        "center": [-59.412, -33.091],
+        "center": [
+          -59.412,
+          -33.091
+        ],
         "resolution": 600,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "parana_medio": {
-        "center": [-60.136, -30.315],
+        "center": [
+          -60.136,
+          -30.315
+        ],
         "resolution": 600,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "esteros": {
-        "center": [-58.561, -27.366],
+        "center": [
+          -58.561,
+          -27.366
+        ],
         "resolution": 800,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "pantanal": {
-        "center": [-58.061, -17.283],
+        "center": [
+          -58.061,
+          -17.283
+        ],
         "resolution": 800,
         "minResolution": 0.12,
         "maxResolution": 64000,
         "backgroundColor": "#A0794A"
       },
       "mundo": {
-        "center": [0, 0],
+        "center": [
+          0,
+          0
+        ],
         "resolution": 64000,
         "minResolution": 0.12,
         "maxResolution": 64000,
@@ -2166,7 +2210,7 @@
         "sitios"
       ],
       "extractivista": [
-        "worldphys_black2_3857",
+        "worldphys_black2",
         "cuenca_plata2",
         "mapa_oscura",
         "soja_2001-2024",
@@ -2185,7 +2229,7 @@
         "exportacion_soja"
       ]
     },
-    "defaultActiveButton": "biocultural",
+    "defaultActiveButton": "extractivista",
     "buttonTitles": {
       "biocultural": "biocultural",
       "extractivista": "extractivista"

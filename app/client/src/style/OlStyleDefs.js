@@ -730,7 +730,7 @@ export const layersStylePropFn = {
     strokeWidth: propertyValue => propertyValue / 200000,
   },
   Santos: {
-    strokeWidth: propertyValue => propertyValue / 400000,
+    strokeWidth: propertyValue => propertyValue / 300000,
   },
   Bahia_Blanca: {
     strokeWidth: propertyValue => propertyValue / 200000,
