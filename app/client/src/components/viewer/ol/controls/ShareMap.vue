@@ -2,38 +2,12 @@
   <div class="mt-4">
     <v-tooltip right>
       <template v-slot:activator="{on}">
-        <v-btn class="share-button" v-on="on" @click="visible = true" :color="color" fab dark x-small
-          ><v-icon medium>fas fa-share</v-icon></v-btn
-        >
+        <v-btn class="share-button" v-on="on" @click="copyLinkNow" :color="color" fab dark x-small>
+          <v-icon medium>{{ copied ? 'check' : 'fas fa-share' }}</v-icon>
+        </v-btn>
       </template>
-      <span>{{ $t('tooltip.shareMap') }}</span>
+      <span>{{ copied ? $t('general.copied') : $t('tooltip.shareMap') }}</span>
     </v-tooltip>
-    <v-dialog v-model="show" max-width="400" @keydown.esc="visible = false">
-      <v-card class="pb-1">
-        <v-app-bar :color="color" flat height="50" dark>
-          <v-icon class="mr-3">fas fa-share</v-icon>
-          <v-toolbar-title>{{ $t('form.shareMap.title') }}</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-app-bar-nav-icon @click.stop="visible = false"><v-icon>close</v-icon></v-app-bar-nav-icon>
-        </v-app-bar>
-        <v-card-text class="mt-5">
-          <v-form>
-            <v-text-field ref="mapLink" readonly :value="mapShareLink" :label="$t(`form.shareMap.shareableLink`)">
-              <template slot="append-outer">
-                <v-tooltip left>
-                  <template v-slot:activator="{on}"
-                    ><v-icon @click="copyMapLink" v-on="on">content_copy</v-icon></template
-                  ><span>{{ $t('general.copy') }}</span>
-                </v-tooltip>
-              </template>
-            </v-text-field>
-          </v-form>
-        </v-card-text>
-        <v-alert class="mx-2 mb-1" dense outlined type="info" elevation="0">
-          {{ $t('form.shareMap.alertInfo') }}
-        </v-alert>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 <script>
@@ -47,22 +21,10 @@ export default {
     color: {type: String},
   },
   data: () => ({
-    mapShareLink: '',
-    visible: false,
+    copied: false,
     previousMapZoom: null,
   }),
   computed: {
-    show: {
-      get() {
-        return this.visible;
-      },
-      set(value) {
-        if (!value) {
-          this.$emit('close');
-          this.mapShareLink = '';
-        }
-      },
-    },
     ...mapFields('app', {
       sidebarState: 'sidebarState',
     }),
@@ -118,12 +80,15 @@ export default {
       if (this.isSeriesPlaying) {
         link += `&playing=1`;
       }
-      this.mapShareLink = link;
+      return link;
     },
-    copyMapLink() {
-      const mapLink = this.$refs.mapLink.$el.querySelector('input');
-      mapLink.select();
-      document.execCommand('copy');
+    copyLinkNow() {
+      const link = this.createShareLink();
+      navigator.clipboard.writeText(link);
+      this.copied = true;
+      setTimeout(() => {
+        this.copied = false;
+      }, 2000);
     },
     updateRouterQuery() {
       const center = this.map.getView().getCenter();
@@ -274,11 +239,6 @@ export default {
     },
   },
   watch: {
-    show() {
-      if (this.show === true && this.map) {
-        this.createShareLink();
-      }
-    },
     $route(newValue, oldValue) {
       // Reset previous zoom if group is changed..
       if (newValue.path !== oldValue.path) {
