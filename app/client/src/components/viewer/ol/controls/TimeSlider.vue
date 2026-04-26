@@ -110,6 +110,7 @@ export default {
     },
     play() {
       this.isPlaying = true;
+      this.isSeriesPlaying = true;
       this.playInterval = setInterval(() => {
         if (this.timeSeriesLayer.get('activeLayerIndex') === this.timeSeriesLayer.getLayers().getArray().length - 1) {
           this.activateTimeSeriesLayer(0, this.timeSeriesLayer);
@@ -120,6 +121,7 @@ export default {
     },
     stop() {
       this.isPlaying = false;
+      this.isSeriesPlaying = false;
       clearInterval(this.playInterval);
     },
     previous() {
@@ -149,6 +151,7 @@ export default {
     }),
     ...mapFields('map', {
       lastSelectedLayer: 'lastSelectedLayer',
+      isSeriesPlaying: 'isSeriesPlaying',
     }),
     timeSeriesLayer() {
       if (!this.layers) return null;
@@ -176,6 +179,13 @@ export default {
       }
 
       return null;
+    },
+  },
+  watch: {
+    isSeriesPlaying(val) {
+      if (val && !this.isPlaying && this.timeSeriesLayer) {
+        this.play();
+      }
     },
   },
 };

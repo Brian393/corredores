@@ -69,6 +69,7 @@ export default {
     ...mapFields('map', {
       popup: 'popup',
       lastSelectedLayer: 'lastSelectedLayer',
+      isSeriesPlaying: 'isSeriesPlaying',
     }),
   },
   methods: {
@@ -113,6 +114,9 @@ export default {
       }
       if (this.lastSelectedLayer) {
         link += `&selectedLayer=${encodeURIComponent(this.lastSelectedLayer)}`;
+      }
+      if (this.isSeriesPlaying) {
+        link += `&playing=1`;
       }
       this.mapShareLink = link;
     },
@@ -199,6 +203,9 @@ export default {
       if (this.$route.query.selectedLayer) {
         this.lastSelectedLayer = this.$route.query.selectedLayer;
         this.sidebarState = true;
+      }
+      if (this.$route.query.playing) {
+        this.isSeriesPlaying = true;
       }
     },
     findLayerByName(name, layers) {
