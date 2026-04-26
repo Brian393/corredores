@@ -38,6 +38,7 @@
 </template>
 <script>
 import {toLonLat, fromLonLat} from 'ol/proj';
+import {getCenter} from 'ol/extent';
 import {mapFields} from 'vuex-map-fields';
 
 export default {
@@ -64,6 +65,10 @@ export default {
     },
     ...mapFields('app', {
       sidebarState: 'sidebarState',
+    }),
+    ...mapFields('map', {
+      popup: 'popup',
+      lastSelectedLayer: 'lastSelectedLayer',
     }),
   },
   methods: {
@@ -94,6 +99,20 @@ export default {
         .toString()}&layers=${visibleLayers.toString()}&sidebar=${this.sidebarState}`;
       if (seriesLayers.length) {
         link += `&series=${seriesLayers.join(',')}`;
+      }
+      if (this.popup && this.popup.activeFeature && this.popup.activeLayer) {
+        const geom = this.popup.activeFeature.getGeometry();
+        if (geom) {
+          const lonLat = toLonLat(getCenter(geom.getExtent()));
+          const rawId = this.popup.activeFeature.getId();
+          const featureId = rawId ? String(rawId).replace(/^clone\./, '') : '';
+          link += `&featureLayer=${encodeURIComponent(this.popup.activeLayer.get('name'))}`;
+          if (featureId) link += `&featureId=${encodeURIComponent(featureId)}`;
+          link += `&featureCoord=${lonLat[0].toFixed(5)},${lonLat[1].toFixed(5)}`;
+        }
+      }
+      if (this.lastSelectedLayer) {
+        link += `&selectedLayer=${encodeURIComponent(this.lastSelectedLayer)}`;
       }
       this.mapShareLink = link;
     },
@@ -169,6 +188,73 @@ export default {
               }
             }
           });
+      }
+      if (this.$route.query.featureLayer && this.$route.query.featureCoord) {
+        this.restoreFeature(
+          this.$route.query.featureLayer,
+          this.$route.query.featureId || '',
+          this.$route.query.featureCoord
+        );
+      }
+      if (this.$route.query.selectedLayer) {
+        this.lastSelectedLayer = this.$route.query.selectedLayer;
+        this.sidebarState = true;
+      }
+    },
+    findLayerByName(name, layers) {
+      for (const layer of layers) {
+        if (layer.get('name') === name) return layer;
+        if (layer.getLayers) {
+          const found = this.findLayerByName(name, layer.getLayers().getArray());
+          if (found) return found;
+        }
+      }
+      return null;
+    },
+    restoreFeature(layerName, featureId, featureCoord) {
+      const targetLayer = this.findLayerByName(layerName, this.map.getLayers().getArray());
+      if (!targetLayer) return;
+      let source = targetLayer.getSource?.();
+      if (!source) return;
+      // Unwrap Cluster to get the underlying VectorSource
+      if (typeof source.getSource === 'function') source = source.getSource();
+      if (typeof source.getFeatures !== 'function') return;
+
+      const [lon, lat] = featureCoord.split(',').map(Number);
+      const coord = fromLonLat([lon, lat]);
+
+      const activate = feature => {
+        const cloned = feature.clone();
+        if (featureId) cloned.setId(`clone.${featureId}`);
+        this.popup.activeLayer = targetLayer;
+        this.popup.activeFeature = cloned;
+        this.popup.showInSidePanel = true;
+        this.sidebarState = true;
+      };
+
+      const findAndActivate = () => {
+        // Prefer exact ID match; fall back to closest geometry center
+        let match = featureId ? source.getFeatureById(featureId) : null;
+        if (!match) {
+          let bestDist = Infinity;
+          source.getFeatures().forEach(f => {
+            const ext = f.getGeometry()?.getExtent();
+            if (!ext) return;
+            const dx = (ext[0] + ext[2]) / 2 - coord[0];
+            const dy = (ext[1] + ext[3]) / 2 - coord[1];
+            const dist = dx * dx + dy * dy;
+            if (dist < bestDist) {
+              bestDist = dist;
+              match = f;
+            }
+          });
+        }
+        if (match) activate(match);
+        return !!match;
+      };
+
+      if (!findAndActivate()) {
+        source.once('featuresloadend', findAndActivate);
       }
     },
     activateTimeSeriesLayer(index, layerGroup) {
