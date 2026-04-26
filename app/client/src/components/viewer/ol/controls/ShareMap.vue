@@ -73,6 +73,7 @@ export default {
       const center = this.map.getView().getCenter();
       const zoom = this.map.getView().getZoom();
       const visibleLayers = [];
+      const seriesLayers = [];
       this.map
         .getLayers()
         .getArray()
@@ -80,13 +81,21 @@ export default {
           if (layer.getVisible() && layer.get('displayInLegend')) {
             visibleLayers.push(layer.get('name'));
           }
+          if (layer.get('displaySeries')) {
+            const index = layer.get('activeLayerIndex') ?? layer.get('defaultSeriesLayerIndex') ?? 0;
+            seriesLayers.push(`${layer.get('name')}:${index}`);
+          }
         });
       const centerLonLat = toLonLat(center)
         .map(e => e.toFixed(3))
         .reverse();
-      this.mapShareLink = `${url}?center=${centerLonLat.toString()}&zoom=${zoom
+      let link = `${url}?center=${centerLonLat.toString()}&zoom=${zoom
         .toFixed(3)
         .toString()}&layers=${visibleLayers.toString()}&sidebar=${this.sidebarState}`;
+      if (seriesLayers.length) {
+        link += `&series=${seriesLayers.join(',')}`;
+      }
+      this.mapShareLink = link;
     },
     copyMapLink() {
       const mapLink = this.$refs.mapLink.$el.querySelector('input');
@@ -138,6 +147,37 @@ export default {
       if (this.$route.query && this.$route.query.sidebar) {
         this.sidebarState = this.$route.query.sidebar != 'false';
       }
+      // Restore time series active layer indices
+      if (this.$route.query && this.$route.query.series) {
+        const seriesMap = {};
+        this.$route.query.series.split(',').forEach(item => {
+          const parts = item.split(':');
+          if (parts.length === 2) {
+            seriesMap[parts[0]] = parseInt(parts[1], 10);
+          }
+        });
+        this.map
+          .getLayers()
+          .getArray()
+          .forEach(layer => {
+            const name = layer.get('name');
+            if (layer.get('displaySeries') && name in seriesMap) {
+              const index = seriesMap[name];
+              const subLayers = layer.getLayers ? layer.getLayers().getArray() : [];
+              if (subLayers.length > index) {
+                this.activateTimeSeriesLayer(index, layer);
+              }
+            }
+          });
+      }
+    },
+    activateTimeSeriesLayer(index, layerGroup) {
+      const layers = layerGroup.getLayers().getArray();
+      layers.forEach(layer => {
+        layer.setVisible(false);
+      });
+      layers[index].setVisible(true);
+      layerGroup.set('activeLayerIndex', index);
     },
   },
   watch: {
