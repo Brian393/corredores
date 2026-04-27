@@ -2121,9 +2121,9 @@
       }
     },
     "flyToSlideshow": {
-      "delayInSecondsForInitialStart": 9000000,
-      "delayInSecondsBetweenFrames": 9000000,
-      "maplinks": []
+      "delayInSecondsForInitialStart": 90,
+      "delayInSecondsBetweenFrames": 8,
+      "maplinks": ["slideshowLinks"]
     },
     "defaultActiveGroup": "valle",
     "groupTitles": {
