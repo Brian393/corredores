@@ -450,12 +450,15 @@ export default {
           this.popup.showInSidePanel = false;
           this.lastSelectedLayer = null;
           // Reset layer visibility to app-conf defaults
-          this.map.getLayers().getArray().forEach(layer => {
-            const name = layer.get('name');
-            if (!name) return;
-            const conf = this.$appConfig.map.layers.find(l => l.name === name);
-            if (conf !== undefined) layer.setVisible(!!conf.visible);
-          });
+          this.map
+            .getLayers()
+            .getArray()
+            .forEach(layer => {
+              const name = layer.get('name');
+              if (!name) return;
+              const conf = this.$appConfig.map.layers.find(l => l.name === name);
+              if (conf !== undefined) layer.setVisible(!!conf.visible);
+            });
           // Reset view to home group defaults (parse from homeHash, not current active group)
           const homeNavbarGroup = this.slideshow.homeHash?.split('/')[1];
           const groupConf = this.$appConfig.map.groups?.[homeNavbarGroup];
@@ -1140,8 +1143,7 @@ export default {
     setupMapFlyToSlideshow() {
       const flyToSlideshow = this.$appConfig.map.flyToSlideshow;
       const maplinks = flyToSlideshow?.maplinks;
-      const fileRef =
-        maplinks?.length === 1 && !maplinks[0].startsWith('#') ? maplinks[0] : null;
+      const fileRef = maplinks?.length === 1 && !maplinks[0].startsWith('#') ? maplinks[0] : null;
 
       const init = () => {
         // Derive home hash from app-conf defaultActiveGroup, NOT from window.location.hash,
@@ -1230,9 +1232,8 @@ export default {
           const src = position.video;
           const isDirect = /\.(mp4|webm|ogg|mov)(\?|$)/i.test(src);
           this.slideshow.videoIsDirect = isDirect;
-          this.slideshow.videoSrc = isDirect || src.includes('mute=1')
-            ? src
-            : src + (src.includes('?') ? '&' : '?') + 'mute=1';
+          this.slideshow.videoSrc =
+            isDirect || src.includes('mute=1') ? src : src + (src.includes('?') ? '&' : '?') + 'mute=1';
           this.stopSlideshow();
           const duration = (position.duration || flyToSlideshow.delayInSecondsBetweenFrames) * 1000;
           this.slideshow.videoTimeout = setTimeout(() => {
@@ -1241,10 +1242,7 @@ export default {
             if (this.slideshow.isRunning) {
               // Re-arm the interval timer for slides after next, then advance immediately.
               // If the next slide is also a video/photo, mapFlyToFn() will stop this timer.
-              this.slideshow.timer = new Timer(
-                this.mapFlyToFn,
-                flyToSlideshow.delayInSecondsBetweenFrames * 1000
-              );
+              this.slideshow.timer = new Timer(this.mapFlyToFn, flyToSlideshow.delayInSecondsBetweenFrames * 1000);
               this.mapFlyToFn();
             }
           }, duration);
@@ -1253,7 +1251,8 @@ export default {
           // Format: { "photo": "fotos_bioculturales.5", "photoIndex": 0, "duration": 12 }
           // The feature's "lightbox" property is a JSON array of { imageUrl, caption } objects.
           const [layerName] = position.photo.split('.');
-          const wfsUrl = `./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature` +
+          const wfsUrl =
+            `./geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature` +
             `&typename=workspace1:${layerName}&featureID=${position.photo}&outputFormat=application/json`;
           this.stopSlideshow();
           const duration = (position.duration || flyToSlideshow.delayInSecondsBetweenFrames) * 1000;
@@ -1261,10 +1260,7 @@ export default {
             this.slideshow.photoSlide = null;
             this.slideshow.videoTimeout = null;
             if (this.slideshow.isRunning) {
-              this.slideshow.timer = new Timer(
-                this.mapFlyToFn,
-                flyToSlideshow.delayInSecondsBetweenFrames * 1000
-              );
+              this.slideshow.timer = new Timer(this.mapFlyToFn, flyToSlideshow.delayInSecondsBetweenFrames * 1000);
               this.mapFlyToFn();
             }
           };
@@ -1278,7 +1274,7 @@ export default {
               if (typeof lightbox === 'string') lightbox = JSON.parse(lightbox);
               const photo = Array.isArray(lightbox) ? lightbox[position.photoIndex || 0] : null;
               if (!photo?.imageUrl) return advanceAfterPhoto();
-              this.slideshow.photoSlide = { url: photo.imageUrl, caption: photo.caption || '' };
+              this.slideshow.photoSlide = {url: photo.imageUrl, caption: photo.caption || ''};
               this.slideshow.videoTimeout = setTimeout(advanceAfterPhoto, duration);
             })
             .catch(() => {

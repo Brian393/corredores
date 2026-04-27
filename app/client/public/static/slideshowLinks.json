@@ -40,7 +40,7 @@
   "#/esteros/extractivista?center=-19.831,-59.120&zoom=9.033&layers=hidrovia,puertos_fluviales,desmonte_2001-2024,AHEs,calles&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:4,exportacion_soja:0&selectedLayer=desmonte_2001-2024",
   "#/valle/extractivista?center=-33.798,-59.628&zoom=6.242&layers=hidrovia,puertos_fluviales,AHEs,calles&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:0,exportacion_soja:0&selectedLayer=hidrovia",
   "#/valle/extractivista?center=-32.812,-60.634&zoom=9.574&layers=hidrovia,puertos_fluviales,AHEs,calles&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:0,exportacion_soja:0&featureLayer=puertos_fluviales&featureId=puertos_fluviales.104&featureCoord=-60.72344,-32.69489",
-  { "video": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/images/cofco2.mp4", "duration": 36 },
+  {"video": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/images/cofco2.mp4", "duration": 36},
   "#/mundo/extractivista?center=0.000,0.000&zoom=1.221&layers=hidrovia,puertos_fluviales,AHEs,calles,exportacion_soja&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:0,exportacion_soja:0&selectedLayer=exportacion_soja",
   "#/mundo/extractivista?center=16.184,27.067&zoom=1.718&layers=hidrovia,puertos_fluviales,AHEs,calles,exportacion_soja&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:4,exportacion_soja:0&featureLayer=Bahia_Blanca&featureId=puerto_bahia_blanca.3&featureCoord=27.06660,16.18384",
   "#/mundo/extractivista?center=-18.402,22.554&zoom=2.121&layers=hidrovia,puertos_fluviales,AHEs,calles,exportacion_soja&sidebar=true&series=soja_2001-2024:0,quemas:0,desmonte_2001-2024:0,exportacion_soja:5&featureLayer=San_Lorenzo&featureId=puerto_san_lorenzo.32&featureCoord=22.55450,-18.40184",
@@ -52,10 +52,10 @@
   "#/delta/biocultural?center=-32.933,-60.884&zoom=9.803&layers=agroecologia,territorios_bioculturales&sidebar=true&featureLayer=territorios_bioculturales&featureId=territorios_bioculturales.7&featureCoord=-60.88416,-32.93350",
   "#/estuario/biocultural?center=-34.868,-58.708&zoom=9.296&layers=agroecologia,territorios_bioculturales&sidebar=true&featureLayer=territorios_bioculturales&featureId=territorios_bioculturales.6&featureCoord=-58.70828,-34.86791",
   "#/estuario/biocultural?center=-34.955,-57.946&zoom=9.671&layers=agroecologia,territorios_bioculturales&sidebar=true&selectedLayer=territorios_bioculturales",
-  { "video": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/images/cofco2.mp4", "duration": 36 },
-  { "photo": "fotos_bioculturales.5", "photoIndex": 16, "duration": 5 },
-  { "photo": "fotos_bioculturales.5", "photoIndex": 20, "duration": 5 },
+  {"video": "https://casa-rio.s3.us-east-2.amazonaws.com/assets/images/cofco2.mp4", "duration": 36},
+  {"photo": "fotos_bioculturales.5", "photoIndex": 16, "duration": 5},
+  {"photo": "fotos_bioculturales.5", "photoIndex": 20, "duration": 5},
   "#/delta/biocultural?center=-34.106,-58.834&zoom=9.267&layers=agroecologia,territorios_bioculturales&sidebar=true&featureLayer=territorios_bioculturales&featureId=territorios_bioculturales.13&featureCoord=-58.85285,-34.09526",
   "#/valle/biocultural?center=-33.900,-58.934&zoom=11.573&layers=agroecologia&sidebar=true",
-  { "video": "https://player.vimeo.com/video/451962556?autoplay=1&muted=1", "duration": 61 }
+  {"video": "https://player.vimeo.com/video/451962556?autoplay=1&muted=1", "duration": 61}
 ]
