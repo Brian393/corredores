@@ -34,14 +34,16 @@
       </div>
     </div>
     <!-- Slideshow toggle button — visible whenever slideshow is configured -->
-    <v-tooltip v-if="$appConfig.map.flyToSlideshow && $appConfig.map.flyToSlideshow.maplinks && $appConfig.map.flyToSlideshow.maplinks.length > 0" left>
-      <template v-slot:activator="{ on, attrs }">
-        <div
-          class="slideshow-toggle-btn"
-          v-bind="attrs"
-          v-on="on"
-          @click.stop="toggleSlideshow()"
-        >
+    <v-tooltip
+      v-if="
+        $appConfig.map.flyToSlideshow &&
+        $appConfig.map.flyToSlideshow.maplinks &&
+        $appConfig.map.flyToSlideshow.maplinks.length > 0
+      "
+      left
+    >
+      <template v-slot:activator="{on, attrs}">
+        <div class="slideshow-toggle-btn" v-bind="attrs" v-on="on" @click.stop="toggleSlideshow()">
           <span v-if="!slideshow.userStopped" class="slideshow-toggle-dot"></span>
         </div>
       </template>
@@ -233,8 +235,7 @@ import {EventBus} from '../../../EventBus';
 // Persists across route-triggered remounts so slideshow always resets to the original startup route
 let _slideshowHomeHash = null;
 let _slideshowPendingOverlay = undefined; // carries overlay URL across map-slide remounts
-let _slideshowHasNavigated = false;       // carries hasNavigated flag across map-slide remounts
-
+let _slideshowHasNavigated = false; // carries hasNavigated flag across map-slide remounts
 
 // utils imports
 import {LayerFactory} from '../../../factory/OlLayer';
