@@ -1238,9 +1238,8 @@ export default {
         this.popup.showInSidePanel = false;
 
         // Optional instructional panel image shown on top of any slide type
-        this.slideshow.overlayUrl = (position && typeof position === 'object' && position.overlay)
-          ? position.overlay
-          : null;
+        this.slideshow.overlayUrl =
+          position && typeof position === 'object' && position.overlay ? position.overlay : null;
 
         if (position && typeof position === 'object' && position.video) {
           // Video slide — stop the interval timer and show the overlay.
@@ -1302,7 +1301,7 @@ export default {
           // Map URL slide — plain string "#/..." or object { map: "#/...", overlay: "..." }
           const hash = typeof position === 'object' ? position.map : position;
           // Store overlay so init() can restore it after Map.vue remounts on navigation
-          _slideshowPendingOverlay = (typeof position === 'object' && position.overlay) ? position.overlay : null;
+          _slideshowPendingOverlay = typeof position === 'object' && position.overlay ? position.overlay : null;
           this.slideshow.isFlying = true;
           window.location.href = hash;
           setTimeout(() => {
