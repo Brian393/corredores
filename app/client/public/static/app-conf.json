@@ -2121,7 +2121,7 @@
       }
     },
     "flyToSlideshow": {
-      "delayInSecondsForInitialStart": 90,
+      "delayInSecondsForInitialStart": 3,
       "delayInSecondsBetweenFrames": 8,
       "maplinks": ["slideshowLinks"]
     },

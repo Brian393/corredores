@@ -20,6 +20,10 @@
         allowfullscreen
       ></iframe>
     </div>
+    <!-- Instructional panel overlay — shown on top of any slide type, pointer-events off so cursor events reach the layer below -->
+    <div v-if="slideshow.overlayUrl" class="slideshow-panel-overlay">
+      <img :src="slideshow.overlayUrl" class="slideshow-panel-img" />
+    </div>
     <!-- Slideshow photo overlay -->
     <div v-if="slideshow.photoSlide" class="slideshow-photo-overlay" @mousemove="resetAfterSlide()">
       <div class="slideshow-photo-content">
@@ -213,6 +217,7 @@ import {EventBus} from '../../../EventBus';
 
 // Persists across route-triggered remounts so slideshow always resets to the original startup route
 let _slideshowHomeHash = null;
+let _slideshowPendingOverlay = undefined; // carries overlay URL across map-slide remounts
 
 // utils imports
 import {LayerFactory} from '../../../factory/OlLayer';
@@ -322,6 +327,7 @@ export default {
         isRunning: false,
         hasNavigated: false,
         homeHash: null,
+        overlayUrl: null, // non-null while an instructional panel image is shown
       },
     };
   },
@@ -442,6 +448,8 @@ export default {
         this.slideshow.videoSrc = null;
         this.slideshow.videoIsDirect = false;
         this.slideshow.photoSlide = null;
+        this.slideshow.overlayUrl = null;
+        _slideshowPendingOverlay = undefined;
         this.slideshow.currentIndex = 0;
         if (this.slideshow.hasNavigated) {
           this.slideshow.hasNavigated = false;
@@ -1156,6 +1164,11 @@ export default {
           _slideshowHomeHash = window.location.hash.split('?')[0];
         }
         this.slideshow.homeHash = _slideshowHomeHash;
+        // Restore overlay carried across a map-slide navigation/remount
+        if (_slideshowPendingOverlay !== undefined) {
+          this.slideshow.overlayUrl = _slideshowPendingOverlay;
+          _slideshowPendingOverlay = undefined;
+        }
         this.initMapFly();
         this.map.on(['pointerdrag', 'moveend'], () => {
           if (this.slideshow.isFlying === false) {
@@ -1173,9 +1186,9 @@ export default {
         fetch(`./static/${fileRef}.json`)
           .then(r => r.json())
           .then(links => {
-            // Filter out comment/documentation objects (keep strings, video, and photo objects)
+            // Filter out comment/documentation objects (keep strings, video, photo, and map objects)
             flyToSlideshow.maplinks = links.filter(
-              l => typeof l === 'string' || (typeof l === 'object' && l !== null && (l.video || l.photo))
+              l => typeof l === 'string' || (typeof l === 'object' && l !== null && (l.video || l.photo || l.map))
             );
             init();
           })
@@ -1223,6 +1236,11 @@ export default {
         // Clear any feature the previous slide opened before advancing
         this.popup.activeFeature = null;
         this.popup.showInSidePanel = false;
+
+        // Optional instructional panel image shown on top of any slide type
+        this.slideshow.overlayUrl = (position && typeof position === 'object' && position.overlay)
+          ? position.overlay
+          : null;
 
         if (position && typeof position === 'object' && position.video) {
           // Video slide — stop the interval timer and show the overlay.
@@ -1281,9 +1299,12 @@ export default {
               if (this.slideshow.isRunning) advanceAfterPhoto();
             });
         } else {
-          // Map URL slide
+          // Map URL slide — plain string "#/..." or object { map: "#/...", overlay: "..." }
+          const hash = typeof position === 'object' ? position.map : position;
+          // Store overlay so init() can restore it after Map.vue remounts on navigation
+          _slideshowPendingOverlay = (typeof position === 'object' && position.overlay) ? position.overlay : null;
           this.slideshow.isFlying = true;
-          window.location.href = position;
+          window.location.href = hash;
           setTimeout(() => {
             this.slideshow.isFlying = false;
           }, 50);
@@ -1751,6 +1772,22 @@ div.ol-control button {
 
 .slideshow-video-direct {
   width: 80%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.slideshow-panel-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 210;
+  pointer-events: none;
+}
+
+.slideshow-panel-img {
+  max-width: 80%;
   max-height: 80vh;
   object-fit: contain;
 }
