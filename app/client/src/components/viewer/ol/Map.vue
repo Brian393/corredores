@@ -33,6 +33,21 @@
         </p>
       </div>
     </div>
+    <!-- Slideshow toggle button — visible whenever slideshow is configured -->
+    <v-tooltip v-if="$appConfig.map.flyToSlideshow && $appConfig.map.flyToSlideshow.maplinks && $appConfig.map.flyToSlideshow.maplinks.length > 0" left>
+      <template v-slot:activator="{ on, attrs }">
+        <div
+          class="slideshow-toggle-btn"
+          v-bind="attrs"
+          v-on="on"
+          @click.stop="toggleSlideshow()"
+        >
+          <span v-if="!slideshow.userStopped" class="slideshow-toggle-dot"></span>
+        </div>
+      </template>
+      <span>{{ slideshow.userStopped ? $t('general.slideshowRestart') : $t('general.slideshowStop') }}</span>
+    </v-tooltip>
+
     <!-- Map Controls -->
     <map-legend :color="color.primary" />
     <time-slider :color="color.primary" />
@@ -218,6 +233,8 @@ import {EventBus} from '../../../EventBus';
 // Persists across route-triggered remounts so slideshow always resets to the original startup route
 let _slideshowHomeHash = null;
 let _slideshowPendingOverlay = undefined; // carries overlay URL across map-slide remounts
+let _slideshowHasNavigated = false;       // carries hasNavigated flag across map-slide remounts
+
 
 // utils imports
 import {LayerFactory} from '../../../factory/OlLayer';
@@ -328,6 +345,7 @@ export default {
         hasNavigated: false,
         homeHash: null,
         overlayUrl: null, // non-null while an instructional panel image is shown
+        userStopped: false, // true when user explicitly stopped the slideshow via the button
       },
     };
   },
@@ -453,6 +471,7 @@ export default {
         this.slideshow.currentIndex = 0;
         if (this.slideshow.hasNavigated) {
           this.slideshow.hasNavigated = false;
+          _slideshowHasNavigated = false;
           // Close feature popup and html layer sidebars
           this.popup.activeFeature = null;
           this.popup.showInSidePanel = false;
@@ -476,6 +495,25 @@ export default {
           if (this.slideshow.homeHash) window.location.hash = this.slideshow.homeHash;
         }
         this.initMapFly();
+      }
+    },
+    toggleSlideshow() {
+      if (this.slideshow.userStopped) {
+        this.slideshow.userStopped = false;
+        this.initMapFly();
+      } else {
+        this.slideshow.userStopped = true;
+        this.stopSlideshow();
+        if (this.slideshow.videoTimeout) {
+          clearTimeout(this.slideshow.videoTimeout);
+          this.slideshow.videoTimeout = null;
+        }
+        this.slideshow.videoSrc = null;
+        this.slideshow.videoIsDirect = false;
+        this.slideshow.photoSlide = null;
+        this.slideshow.overlayUrl = null;
+        this.slideshow.isRunning = false;
+        _slideshowPendingOverlay = undefined;
       }
     },
     onVideoError() {
@@ -1165,6 +1203,7 @@ export default {
         }
         this.slideshow.homeHash = _slideshowHomeHash;
         // Restore overlay carried across a map-slide navigation/remount
+        if (_slideshowHasNavigated) this.slideshow.hasNavigated = true;
         if (_slideshowPendingOverlay !== undefined) {
           this.slideshow.overlayUrl = _slideshowPendingOverlay;
           _slideshowPendingOverlay = undefined;
@@ -1198,6 +1237,7 @@ export default {
       }
     },
     initMapFly() {
+      if (this.slideshow.userStopped) return;
       this.stopSlideshow();
       // Timeout for initial start.
       this.slideshow.timeout = setTimeout(() => {
@@ -1233,6 +1273,7 @@ export default {
         const position = flyToSlideshow.maplinks[this.slideshow.currentIndex];
         this.slideshow.currentIndex += 1;
         this.slideshow.hasNavigated = true;
+        _slideshowHasNavigated = true;
         // Clear any feature the previous slide opened before advancing
         this.popup.activeFeature = null;
         this.popup.showInSidePanel = false;
@@ -1773,6 +1814,31 @@ div.ol-control button {
   width: 80%;
   max-height: 80vh;
   object-fit: contain;
+}
+
+.slideshow-toggle-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 36px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid white;
+  cursor: pointer;
+  z-index: 230;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slideshow-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  display: block;
 }
 
 .slideshow-panel-overlay {
