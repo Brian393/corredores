@@ -14,6 +14,10 @@
 import {toLonLat, fromLonLat} from 'ol/proj';
 import {getCenter} from 'ol/extent';
 import {mapFields} from 'vuex-map-fields';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import GeoJSON from 'ol/format/GeoJSON';
+import http from '../../../../services/http';
+import {geojsonToFeature} from '../../../../utils/MapUtils';
 
 export default {
   props: {
@@ -23,6 +27,7 @@ export default {
   data: () => ({
     copied: false,
     previousMapZoom: null,
+    pendingAnalysisFeature: null,
   }),
   computed: {
     ...mapFields('app', {
@@ -32,6 +37,10 @@ export default {
       popup: 'popup',
       lastSelectedLayer: 'lastSelectedLayer',
       isSeriesPlaying: 'isSeriesPlaying',
+      slideshowUserStopped: 'slideshowUserStopped',
+      analysisIframeUrl: 'analysisIframeUrl',
+      editLayer: 'editLayer',
+      highlightLayer: 'highlightLayer',
     }),
   },
   methods: {
@@ -79,6 +88,12 @@ export default {
       }
       if (this.isSeriesPlaying) {
         link += `&playing=1`;
+      }
+      if (this.slideshowUserStopped) {
+        link += `&slideshowStopped=1`;
+      }
+      if (this.analysisIframeUrl) {
+        link += `&analysis=${encodeURIComponent(this.analysisIframeUrl)}`;
       }
       return link;
     },
@@ -172,6 +187,73 @@ export default {
       if (this.$route.query.playing) {
         this.isSeriesPlaying = true;
       }
+      if (this.$route.query.slideshowStopped) {
+        this.slideshowUserStopped = true;
+      }
+      if (this.$route.query.analysis) {
+        const decoded = decodeURIComponent(this.$route.query.analysis);
+        const refreshed = decoded.replace(/([?&])_ts=\d+/, `$1_ts=${Date.now()}`);
+        this.analysisIframeUrl = refreshed;
+        this.sidebarState = true;
+        const geojsonMatch = decoded.match(/[?&]geojson=([^&]+)/);
+        if (geojsonMatch) {
+          try {
+            const geomObj = JSON.parse(decodeURIComponent(geojsonMatch[1]));
+            const format = new GeoJSON();
+            const feature = format.readFeature(
+              {type: 'Feature', geometry: geomObj},
+              {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'}
+            );
+            if (this.editLayer && this.highlightLayer) {
+              this.editLayer.getSource().clear();
+              this.editLayer.getSource().addFeature(feature.clone());
+              this.highlightLayer.getSource().clear();
+              this.highlightLayer.getSource().addFeature(feature.clone());
+            } else {
+              this.pendingAnalysisFeature = feature;
+            }
+          } catch (e) {
+            // ignore malformed geojson
+          }
+        }
+        const presetMatch = decoded.match(/[?&]preset=([^&]+)/);
+        if (presetMatch) {
+          const parts = presetMatch[1].split(':');
+          if (parts.length >= 2) {
+            this.restoreAnalysisPresetHighlight(parts[0], parts.slice(1).join(':'));
+          }
+        }
+      } else {
+        this.analysisIframeUrl = null;
+      }
+    },
+    restoreAnalysisPresetHighlight(presetName, presetValue) {
+      const allLayers = this.map.getLayers().getArray();
+      const targetLayer = allLayers.find(l => l.get('presetLayerName') === presetName);
+      if (!targetLayer) return;
+      let source = targetLayer.getSource?.();
+      if (!source) return;
+      if (typeof source.getSource === 'function') source = source.getSource();
+      if (typeof source.getFeatures !== 'function') return;
+      const addHighlight = () => {
+        const feature = source.getFeatures().find(f => {
+          const id = f.get('row_id') || f.get('id') || f.get('gid') || f.get('ID');
+          return String(id).toLowerCase() === String(presetValue).toLowerCase();
+        });
+        if (!feature) return false;
+        if (this.editLayer) {
+          this.editLayer.getSource().clear();
+          this.editLayer.getSource().addFeature(feature.clone());
+        }
+        if (this.highlightLayer) {
+          this.highlightLayer.getSource().clear();
+          this.highlightLayer.getSource().addFeature(feature.clone());
+        }
+        return true;
+      };
+      if (!addHighlight()) {
+        source.once('featuresloadend', addHighlight);
+      }
     },
     findLayerByName(name, layers) {
       for (const layer of layers) {
@@ -186,6 +268,40 @@ export default {
     restoreFeature(layerName, featureId, featureCoord) {
       const targetLayer = this.findLayerByName(layerName, this.map.getLayers().getArray());
       if (!targetLayer) return;
+
+      // MVT layers have no getFeatures() — fetch from WFS by ID instead
+      if (targetLayer instanceof VectorTileLayer) {
+        if (!featureId) return;
+        const tileUrls = targetLayer.getSource()?.getUrls?.();
+        if (!tileUrls || !tileUrls[0] || !tileUrls[0].includes('geoserver')) return;
+        const match = tileUrls[0].match('tms/1.0.0/(.*)@EPSG');
+        if (!Array.isArray(match) || match.length < 2) return;
+        const geoserverLayerName = match[1];
+        http
+          .get('./geoserver/wfs', {
+            params: {
+              service: 'WFS',
+              version: ' 2.0.0',
+              request: 'GetFeature',
+              outputFormat: 'application/json',
+              srsName: 'EPSG:3857',
+              typeNames: geoserverLayerName,
+              featureId,
+            },
+          })
+          .then(response => {
+            if (!response.data.features?.length) return;
+            const feature = geojsonToFeature(response.data, {})[0];
+            if (!feature) return;
+            feature.setId(`clone.${featureId}`);
+            this.popup.activeLayer = targetLayer;
+            this.popup.activeFeature = feature;
+            this.popup.showInSidePanel = true;
+            this.sidebarState = true;
+          });
+        return;
+      }
+
       let source = targetLayer.getSource?.();
       if (!source) return;
       // Unwrap Cluster to get the underlying VectorSource
@@ -239,6 +355,13 @@ export default {
     },
   },
   watch: {
+    editLayer(layer) {
+      if (layer && this.pendingAnalysisFeature) {
+        layer.getSource().addFeature(this.pendingAnalysisFeature.clone());
+        if (this.highlightLayer) this.highlightLayer.getSource().addFeature(this.pendingAnalysisFeature.clone());
+        this.pendingAnalysisFeature = null;
+      }
+    },
     $route(newValue, oldValue) {
       // Reset previous zoom if group is changed..
       if (newValue.path !== oldValue.path) {

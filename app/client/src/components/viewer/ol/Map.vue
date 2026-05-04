@@ -83,13 +83,17 @@
 
     <!-- Edit & Analysis Controls -->
     <div style="position: absolute; right: 20px; top: 10px">
-      <!-- Edit Controls (Only available for logged users which aren't guests ) -->
-      <div v-if="loggedUser">
-        <edit :map="map" :color="{primary: color.primary, activeButton: color.secondary}" />
-      </div>
-      <!-- Analysis Control (Always visible unless editing) -->
+      <!-- Edit Controls (UI hidden for non-logged users, but layers always created) -->
+      <edit :map="map" :color="{primary: color.primary, activeButton: color.secondary}" />
+      <!-- Analysis Control (only in groups that contain a presetLayer) -->
       <div
-        v-if="!selectedLayer && !isEditingPost && $appConfig.app.analysis && $appConfig.app.analysis.rShinyServerUrl"
+        v-if="
+          currentGroupHasPresetLayer &&
+          !selectedLayer &&
+          !isEditingPost &&
+          $appConfig.app.analysis &&
+          $appConfig.app.analysis.rShinyServerUrl
+        "
       >
         <analysis :map="map" :color="color.primary" />
       </div>
@@ -477,6 +481,9 @@ export default {
           this.popup.activeFeature = null;
           this.popup.showInSidePanel = false;
           this.lastSelectedLayer = null;
+          // Clear analysis polygon on slideshow exit
+          if (this.editLayer) this.editLayer.getSource().clear();
+          if (this.highlightLayer) this.highlightLayer.getSource().clear();
           // Reset layer visibility to app-conf defaults
           this.map
             .getLayers()
@@ -501,9 +508,11 @@ export default {
     toggleSlideshow() {
       if (this.slideshow.userStopped) {
         this.slideshow.userStopped = false;
+        this.slideshowUserStopped = false;
         this.initMapFly();
       } else {
         this.slideshow.userStopped = true;
+        this.slideshowUserStopped = true;
         this.stopSlideshow();
         if (this.slideshow.videoTimeout) {
           clearTimeout(this.slideshow.videoTimeout);
@@ -1209,6 +1218,7 @@ export default {
           this.slideshow.overlayUrl = _slideshowPendingOverlay;
           _slideshowPendingOverlay = undefined;
         }
+        if (this.slideshowUserStopped) this.slideshow.userStopped = true;
         this.initMapFly();
         this.map.on(['pointerdrag', 'moveend'], () => {
           if (this.slideshow.isFlying === false) {
@@ -1641,6 +1651,9 @@ export default {
       currentResolution: 'currentResolution',
       lastSelectedLayer: 'lastSelectedLayer',
       analysisEditType: 'analysisEditType',
+      editLayer: 'editLayer',
+      highlightLayer: 'highlightLayer',
+      slideshowUserStopped: 'slideshowUserStopped',
     }),
     hiddenProps() {
       const hiddenProps = this.$appConfig.map.featureInfoHiddenProps;
@@ -1649,6 +1662,12 @@ export default {
     activeLayerGroupConf() {
       const group = this.$appConfig.map.groups[this.activeLayerGroup.navbarGroup][this.activeLayerGroup.region];
       return group;
+    },
+    currentGroupHasPresetLayer() {
+      const group = this.$appConfig.map.groups?.[this.activeLayerGroup.navbarGroup]?.[this.activeLayerGroup.region];
+      if (!group?.layers) return false;
+      const groupLayerSet = new Set(group.layers);
+      return (this.$appConfig.map.layers || []).some(l => l.presetLayer && groupLayerSet.has(l.name));
     },
     searchLabel() {
       const searchLabel = this.popup.activeLayer.get('searchLabel');
